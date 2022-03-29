@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyNetWork</string>
+    <string name="title_posts">Посты</string>
+    <string name="title_events">События</string>
+    <string name="title_users">Пользователи</string>
+</resources>
