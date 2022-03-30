@@ -19,4 +19,34 @@
         android:name="com.example.mynetwork.ui.UsersFragment"
         android:label="@string/title_users"
         tools:layout="@layout/fragment_users"/>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.mynetwork.ui.SignInFragment"
+        android:label="@string/sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_appActivity"
+            app:destination="@id/appActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.mynetwork.ui.SignUpFragment"
+        android:label="@string/sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_appActivity"
+            app:destination="@id/appActivity" />
+        <action
+            android:id="@+id/action_signUpFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/appActivity"
+        android:name="com.example.mynetwork.ui.AppActivity"
+        android:label="AppActivity" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.mynetwork.ui.ProfileFragment"
+        android:label="@string/title_my_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

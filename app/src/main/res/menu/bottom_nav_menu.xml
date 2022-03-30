@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_baseline_people_24"
         android:title="@string/title_users" />
 
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/title_my_profile" />
+
 </menu>

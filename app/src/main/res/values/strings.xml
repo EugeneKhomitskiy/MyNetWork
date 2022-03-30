@@ -3,4 +3,16 @@
     <string name="title_posts">Posts</string>
     <string name="title_events">Events</string>
     <string name="title_users">Users</string>
+    <string name="title_my_profile">My profile</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="in_out">Sign In/Sign Up</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="user_name">Name</string>
+    <string name="error_login">Invalid username/password</string>
+    <string name="error_auth">You are not authorized</string>
+    <string name="error_repeat_password">Password mismatch</string>
 </resources>
