@@ -2,13 +2,14 @@ package com.example.mynetwork.api
 
 import com.example.mynetwork.dto.PushToken
 import com.example.mynetwork.dto.Token
+import com.example.mynetwork.dto.User
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
+
+    @GET("users")
+    suspend fun getUsers() : Response<List<User>>
 
     @FormUrlEncoded
     @POST("users/authentication")
