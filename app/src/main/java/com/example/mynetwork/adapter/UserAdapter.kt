@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mynetwork.databinding.CardUserBinding
 import com.example.mynetwork.dto.User
 
-class UserAdapter() :
+class UserAdapter :
     ListAdapter<User, UserViewHolder>(UserDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = CardUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)

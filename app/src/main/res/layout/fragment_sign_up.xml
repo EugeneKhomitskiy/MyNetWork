@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.SignUpFragment">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
+        android:layout_width="144dp"
+        android:layout_height="144dp"
+        android:src="@drawable/ic_add_user_icon5050"
+        app:civ_border_color="@android:color/transparent"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/textFieldName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSignUp"
         android:backgroundTint="@color/blue"

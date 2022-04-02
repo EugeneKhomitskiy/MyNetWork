@@ -3,6 +3,8 @@ package com.example.mynetwork.api
 import com.example.mynetwork.dto.PushToken
 import com.example.mynetwork.dto.Token
 import com.example.mynetwork.dto.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -18,12 +20,13 @@ interface ApiService {
         @Field("pass") pass: String
     ): Response<Token>
 
-    @FormUrlEncoded
+    @Multipart
     @POST("users/registration")
     suspend fun registerUser(
-        @Field("login") login: String,
-        @Field("pass") pass: String,
-        @Field("name") name: String
+        @Part("login") login: RequestBody,
+        @Part("pass") pass: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part file: MultipartBody.Part?
     ): Response<Token>
 
     @POST("users/push-tokens")
