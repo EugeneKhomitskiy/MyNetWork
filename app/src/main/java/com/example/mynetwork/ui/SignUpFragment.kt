@@ -11,7 +11,6 @@ import com.example.mynetwork.R
 import com.example.mynetwork.auth.AppAuth
 import com.example.mynetwork.databinding.FragmentSignUpBinding
 import com.example.mynetwork.viewmodel.SignUpViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -51,15 +50,6 @@ class SignUpFragment : Fragment() {
             findNavController().navigate(R.id.action_signUpFragment_to_appActivity)
         }
 
-        requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility =
-            View.GONE
-
         return binding.root
-    }
-
-    override fun onDestroy() {
-        requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility =
-            View.VISIBLE
-        super.onDestroy()
     }
 }

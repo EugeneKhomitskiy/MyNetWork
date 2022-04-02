@@ -38,14 +38,14 @@
             app:destination="@id/appActivity" />
         <action
             android:id="@+id/action_signUpFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/navigation_profile" />
     </fragment>
     <activity
         android:id="@+id/appActivity"
         android:name="com.example.mynetwork.ui.AppActivity"
         android:label="AppActivity" />
     <fragment
-        android:id="@+id/profileFragment"
+        android:id="@+id/navigation_profile"
         android:name="com.example.mynetwork.ui.ProfileFragment"
         android:label="@string/title_my_profile"
         tools:layout="@layout/fragment_profile" />

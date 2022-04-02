@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -37,12 +38,23 @@ class AppActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_posts, R.id.navigation_events, R.id.navigation_users, R.id.navigation_profile -> {
+                    navView.visibility = View.VISIBLE
+                }
+                else -> {
+                    navView.visibility = View.GONE
+                }
+            }
+        }
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_posts,
                 R.id.navigation_events,
                 R.id.navigation_users,
-                R.id.profileFragment
+                R.id.navigation_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
