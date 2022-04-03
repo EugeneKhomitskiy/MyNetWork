@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/user_avatar"
+        android:id="@+id/userAvatar"
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
         android:layout_marginStart="@dimen/common_spacing"
@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/ic_baseline_person_24" />
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
@@ -24,8 +24,20 @@
         android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
-        app:layout_constraintStart_toEndOf="@+id/user_avatar"
-        app:layout_constraintTop_toTopOf="@+id/user_avatar"
+        app:layout_constraintBottom_toBottomOf="@+id/userAvatar"
+        app:layout_constraintStart_toEndOf="@+id/userAvatar"
+        app:layout_constraintTop_toTopOf="@+id/userAvatar"
         tools:text="TextView"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/materialDivider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        app:layout_constraintTop_toBottomOf="@id/userAvatar"
+        app:dividerColor="@android:color/darker_gray"
+        app:dividerInsetEnd="@dimen/common_spacing"
+        app:dividerInsetStart="@dimen/margin_start_divider"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
