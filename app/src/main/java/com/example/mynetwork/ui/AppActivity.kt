@@ -1,5 +1,8 @@
 package com.example.mynetwork.ui
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import com.example.mynetwork.auth.AppAuth
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,9 +14,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.ActivityAppBinding
 import com.example.mynetwork.viewmodel.AuthViewModel
+import com.example.mynetwork.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,6 +33,7 @@ class AppActivity : AppCompatActivity() {
     lateinit var appAuth: AppAuth
 
     private val viewModel: AuthViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
 
     private lateinit var binding: ActivityAppBinding
 
@@ -35,6 +44,7 @@ class AppActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
+        navView.itemIconTintList = null
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
@@ -62,6 +72,28 @@ class AppActivity : AppCompatActivity() {
 
         viewModel.data.observe(this) {
             invalidateOptionsMenu()
+            userViewModel.getUserById(it.id)
+        }
+
+        userViewModel.user.observe(this) {
+            val itemIcon = navView.menu.findItem(R.id.navigation_profile)
+
+            Glide.with(this)
+                .asBitmap()
+                .load("${it.avatar}")
+                .transform(CircleCrop())
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        itemIcon.icon = BitmapDrawable(resources, resource)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        TODO("Not yet implemented")
+                    }
+                })
         }
     }
 

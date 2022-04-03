@@ -20,6 +20,10 @@ class UserViewModel @Inject constructor(
     val data: LiveData<List<User>>
         get() = _data
 
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
+
     init {
         getUsers()
     }
@@ -29,6 +33,19 @@ class UserViewModel @Inject constructor(
             val response = apiService.getUsers()
             if (response.isSuccessful) {
                 _data.value = response.body()
+            }
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
+    }
+
+    fun getUserById(id: Long) = viewModelScope.launch {
+        try {
+            val response = apiService.getUserById(id)
+            if (response.isSuccessful) {
+                _user.value = response.body()
             }
         } catch (e: IOException) {
             throw NetworkError

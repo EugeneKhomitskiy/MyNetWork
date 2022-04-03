@@ -13,6 +13,9 @@ interface ApiService {
     @GET("users")
     suspend fun getUsers() : Response<List<User>>
 
+    @GET("users/{id}")
+    suspend fun getUserById(@Path("id") id: Long): Response<User>
+
     @FormUrlEncoded
     @POST("users/authentication")
     suspend fun updateUser(
