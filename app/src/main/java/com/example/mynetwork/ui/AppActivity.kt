@@ -70,13 +70,18 @@ class AppActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        val itemIcon = navView.menu.findItem(R.id.navigation_profile)
+
         viewModel.data.observe(this) {
             invalidateOptionsMenu()
-            userViewModel.getUserById(it.id)
+            if (it.id == 0L) {
+                itemIcon.setIcon(R.drawable.ic_profile_avatar_selector)
+            } else {
+                userViewModel.getUserById(it.id)
+            }
         }
 
         userViewModel.user.observe(this) {
-            val itemIcon = navView.menu.findItem(R.id.navigation_profile)
 
             Glide.with(this)
                 .asBitmap()
@@ -90,9 +95,7 @@ class AppActivity : AppCompatActivity() {
                         itemIcon.icon = BitmapDrawable(resources, resource)
                     }
 
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        TODO("Not yet implemented")
-                    }
+                    override fun onLoadCleared(placeholder: Drawable?) {}
                 })
         }
     }
