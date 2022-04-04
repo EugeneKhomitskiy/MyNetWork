@@ -15,4 +15,5 @@
     <string name="error_login">Invalid username/password</string>
     <string name="error_auth">You are not authorized</string>
     <string name="error_repeat_password">Password mismatch</string>
+    <string name="error_loading">Network error. Please check your connection and try again</string>
 </resources>

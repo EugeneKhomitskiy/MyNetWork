@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.mynetwork.R
 import com.example.mynetwork.adapter.UserAdapter
 import com.example.mynetwork.databinding.FragmentUsersBinding
 import com.example.mynetwork.viewmodel.UserViewModel
@@ -29,12 +31,21 @@ class UsersFragment : Fragment() {
             false
         )
 
+        viewModel.getUsers()
+
         val adapter = UserAdapter()
 
         binding.list.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+        viewModel.dataState.observe(viewLifecycleOwner) { state ->
+            when {
+                state.error -> {
+                    Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         return binding.root

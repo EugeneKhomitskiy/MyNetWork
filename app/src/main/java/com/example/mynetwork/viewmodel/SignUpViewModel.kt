@@ -10,7 +10,7 @@ import com.example.mynetwork.api.ApiService
 import com.example.mynetwork.dto.MediaUpload
 import com.example.mynetwork.dto.Token
 import com.example.mynetwork.error.ApiError
-import com.example.mynetwork.error.NetworkError
+import com.example.mynetwork.model.ModelState
 import com.example.mynetwork.model.PhotoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -34,6 +34,10 @@ class SignUpViewModel @Inject constructor(
     val photo: LiveData<PhotoModel>
         get() = _photo
 
+    private val _dataState = MutableLiveData<ModelState>()
+    val dataState: LiveData<ModelState>
+        get() = _dataState
+
     fun registerUser(name: String, login: String, pass: String) {
         viewModelScope.launch {
             try {
@@ -51,7 +55,7 @@ class SignUpViewModel @Inject constructor(
                 val body = response.body() ?: throw ApiError(response.message())
                 data.value = Token(body.id, body.token)
             } catch (e: IOException) {
-                throw NetworkError
+                _dataState.postValue(ModelState(error = true))
             } catch (e: Exception) {
                 throw UnknownError()
             }

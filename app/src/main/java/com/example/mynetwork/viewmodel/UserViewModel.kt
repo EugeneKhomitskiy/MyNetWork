@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mynetwork.api.ApiService
 import com.example.mynetwork.dto.User
-import com.example.mynetwork.error.NetworkError
+import com.example.mynetwork.model.ModelState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -20,22 +20,22 @@ class UserViewModel @Inject constructor(
     val data: LiveData<List<User>>
         get() = _data
 
+    private val _dataState = MutableLiveData<ModelState>()
+    val dataState: LiveData<ModelState>
+        get() = _dataState
+
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
 
-    init {
-        getUsers()
-    }
-
-    private fun getUsers() = viewModelScope.launch {
+    fun getUsers() = viewModelScope.launch {
         try {
             val response = apiService.getUsers()
             if (response.isSuccessful) {
                 _data.value = response.body()
             }
         } catch (e: IOException) {
-            throw NetworkError
+            _dataState.postValue(ModelState(error = true))
         } catch (e: Exception) {
             throw UnknownError()
         }
@@ -48,7 +48,7 @@ class UserViewModel @Inject constructor(
                 _user.value = response.body()
             }
         } catch (e: IOException) {
-            throw NetworkError
+            _dataState.postValue(ModelState(error = true))
         } catch (e: Exception) {
             throw UnknownError()
         }

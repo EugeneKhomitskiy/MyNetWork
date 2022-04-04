@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.mynetwork.api.ApiService
 import com.example.mynetwork.dto.Token
 import com.example.mynetwork.error.ApiError
-import com.example.mynetwork.error.NetworkError
 import com.example.mynetwork.model.ModelState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,7 +34,7 @@ class SignInViewModel @Inject constructor(
                 val body = response.body() ?: throw ApiError(response.message())
                 data.value = Token(body.id, body.token)
             } catch (e: IOException) {
-                throw NetworkError
+                _dataState.postValue(ModelState(error = true))
             } catch (e: Exception) {
                 _dataState.postValue(ModelState(errorLogin = true))
             }
