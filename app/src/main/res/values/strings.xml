@@ -16,4 +16,5 @@
     <string name="error_auth">You are not authorized</string>
     <string name="error_repeat_password">Password mismatch</string>
     <string name="error_loading">Network error. Please check your connection and try again</string>
+    <string name="title_jobs">Jobs</string>
 </resources>

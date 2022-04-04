@@ -6,13 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
+import com.example.mynetwork.adapter.ViewPagerAdapter
 import com.example.mynetwork.databinding.FragmentProfileBinding
 import com.example.mynetwork.viewmodel.AuthViewModel
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+private val TAB_TITLES = arrayOf(
+    R.string.title_posts,
+    R.string.title_events,
+    R.string.title_jobs
+)
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -32,11 +38,17 @@ class ProfileFragment : Fragment() {
             false
         )
 
-        with(binding) {
-            if (authViewModel.authenticated) buttonInOut.visibility = View.GONE
-            buttonInOut.setOnClickListener {
-                findNavController().navigate(R.id.signInFragment)
-            }
+        val viewPager = binding.viewPager
+        val tabLayout = binding.tabLayout
+
+        viewPager.adapter = ViewPagerAdapter(this)
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = getString(TAB_TITLES[position])
+        }.attach()
+
+        authViewModel.data.observe(viewLifecycleOwner) {
+            if (!authViewModel.authenticated) viewPager.adapter = ViewPagerAdapter(this)
         }
 
         return binding.root
