@@ -11,11 +11,15 @@ import com.example.mynetwork.R
 import com.example.mynetwork.databinding.CardUserBinding
 import com.example.mynetwork.dto.User
 
-class UserAdapter :
+interface UserCallback {
+    fun openProfile(user: User)
+}
+
+class UserAdapter(private val userCallback: UserCallback) :
     ListAdapter<User, UserViewHolder>(UserDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = CardUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return UserViewHolder(binding)
+        return UserViewHolder(binding, userCallback)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
@@ -25,7 +29,8 @@ class UserAdapter :
 }
 
 class UserViewHolder(
-    private val binding: CardUserBinding
+    private val binding: CardUserBinding,
+    private val userCallback: UserCallback
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(user: User) {
@@ -37,6 +42,10 @@ class UserViewHolder(
                 .transform(CircleCrop())
                 .placeholder(R.drawable.ic_avatar_default)
                 .into(userAvatar)
+
+            viewUser.setOnClickListener {
+                userCallback.openProfile(user)
+            }
         }
     }
 }

@@ -24,10 +24,10 @@
         android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/text_size"
+        android:text="@string/user_name"
         app:layout_constraintBottom_toBottomOf="@+id/userAvatar"
         app:layout_constraintStart_toEndOf="@+id/userAvatar"
-        app:layout_constraintTop_toTopOf="@+id/userAvatar"
-        tools:text="TextView"/>
+        app:layout_constraintTop_toTopOf="@+id/userAvatar"/>
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider"
@@ -39,5 +39,16 @@
         app:dividerInsetEnd="@dimen/common_spacing"
         app:dividerInsetStart="@dimen/margin_start_divider"
         tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/viewUser"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/materialDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

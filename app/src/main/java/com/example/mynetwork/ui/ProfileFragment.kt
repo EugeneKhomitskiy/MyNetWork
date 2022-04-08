@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mynetwork.R
 import com.example.mynetwork.adapter.ViewPagerAdapter
 import com.example.mynetwork.databinding.FragmentProfileBinding
@@ -25,6 +27,7 @@ private val TAB_TITLES = arrayOf(
 class ProfileFragment : Fragment() {
 
     private val authViewModel: AuthViewModel by viewModels()
+    private var isVisibleGroupFab = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +43,9 @@ class ProfileFragment : Fragment() {
 
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout
+        val id = arguments?.getLong("id")
+        val avatar = arguments?.getString("avatar")
+        val name = arguments?.getString("name")
 
         viewPager.adapter = ViewPagerAdapter(this)
 
@@ -47,8 +53,31 @@ class ProfileFragment : Fragment() {
             tab.text = getString(TAB_TITLES[position])
         }.attach()
 
+        with(binding) {
+            userName.text = name
+
+            Glide.with(userAvatar)
+                .load("$avatar")
+                .transform(CircleCrop())
+                .placeholder(R.drawable.ic_avatar_default)
+                .into(userAvatar)
+        }
+
         authViewModel.data.observe(viewLifecycleOwner) {
-            if (!authViewModel.authenticated) viewPager.adapter = ViewPagerAdapter(this)
+            if (authViewModel.authenticated && id == it.id) {
+                binding.fab.visibility = View.VISIBLE
+            }
+        }
+
+        binding.fab.setOnClickListener {
+            if (!isVisibleGroupFab) {
+                binding.fab.setImageResource(R.drawable.ic_baseline_close_24)
+                binding.groupFab.visibility = View.VISIBLE
+            } else {
+                binding.fab.setImageResource(R.drawable.ic_baseline_add_24)
+                binding.groupFab.visibility = View.GONE
+            }
+            isVisibleGroupFab = !isVisibleGroupFab
         }
 
         return binding.root

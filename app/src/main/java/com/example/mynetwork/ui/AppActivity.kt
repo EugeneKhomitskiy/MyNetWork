@@ -32,7 +32,7 @@ class AppActivity : AppCompatActivity() {
     @Inject
     lateinit var appAuth: AppAuth
 
-    private val viewModel: AuthViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
 
     private lateinit var binding: ActivityAppBinding
@@ -61,10 +61,8 @@ class AppActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_posts,
-                R.id.navigation_events,
-                R.id.navigation_users,
-                R.id.navigation_profile
+                R.id.navigation_posts, R.id.navigation_events,
+                R.id.navigation_users, R.id.navigation_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -72,17 +70,36 @@ class AppActivity : AppCompatActivity() {
 
         val itemIcon = navView.menu.findItem(R.id.navigation_profile)
 
-        viewModel.data.observe(this) {
+        authViewModel.data.observe(this) { auth ->
             invalidateOptionsMenu()
-            if (it.id == 0L) {
+
+            if (auth.id == 0L) {
                 itemIcon.setIcon(R.drawable.ic_profile_avatar_selector)
             } else {
-                userViewModel.getUserById(it.id)
+                userViewModel.getUserById(auth.id)
+            }
+
+            navView.menu.findItem(R.id.navigation_profile).setOnMenuItemClickListener {
+                if (!authViewModel.authenticated) {
+                    findNavController(R.id.nav_host_fragment_activity_main)
+                        .navigate(R.id.signInFragment)
+                    true
+                } else {
+                    userViewModel.getUserById(auth.id)
+                    val bundle = Bundle().apply {
+                        userViewModel.user.value?.id?.let { it -> putLong("id", it) }
+                        putString("avatar", userViewModel.user.value?.avatar)
+                        putString("name", userViewModel.user.value?.name)
+                    }
+                    findNavController(R.id.nav_host_fragment_activity_main).popBackStack()
+                    findNavController(R.id.nav_host_fragment_activity_main)
+                        .navigate(R.id.navigation_profile, bundle)
+                    true
+                }
             }
         }
 
         userViewModel.user.observe(this) {
-
             Glide.with(this)
                 .asBitmap()
                 .load("${it.avatar}")
@@ -104,8 +121,8 @@ class AppActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
 
         menu.let {
-            it.setGroupVisible(R.id.unauthenticated, !viewModel.authenticated)
-            it.setGroupVisible(R.id.authenticated, viewModel.authenticated)
+            it.setGroupVisible(R.id.unauthenticated, !authViewModel.authenticated)
+            it.setGroupVisible(R.id.authenticated, authViewModel.authenticated)
         }
         return true
     }
@@ -122,6 +139,7 @@ class AppActivity : AppCompatActivity() {
             }
             R.id.signout -> {
                 appAuth.removeAuth()
+                findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
                 true
             }
             else -> super.onOptionsItemSelected(item)
