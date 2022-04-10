@@ -4,4 +4,6 @@
     <dimen name="avatar_size">48dp</dimen>
     <dimen name="text_size">16sp</dimen>
     <dimen name="margin_start_divider">72dp</dimen>
+    <dimen name="min_size_button">48dp</dimen>
+    <dimen name="posts_avatar_size">48dp</dimen>
 </resources>

@@ -20,4 +20,6 @@
     <string name="error_loading">Network error. Please check your connection and try again</string>
     <string name="title_jobs">Jobs</string>
     <string name="title_job">Job</string>
+    <string name="post_text">Post text</string>
+    <string name="error_empty_content">Content can\'t be empty</string>
 </resources>

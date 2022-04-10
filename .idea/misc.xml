@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_baseline_login_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_like_selector_24.xml" value="0.1015" />
         <entry key="app/src/main/res/drawable-xhdpi/ic_error_100dp.xml" value="0.229" />
         <entry key="app/src/main/res/drawable-xhdpi/ic_loading_100dp.xml" value="0.1415" />
         <entry key="app/src/main/res/drawable-xxxhdpi/ic_error_100dp.xml" value="0.1865" />
@@ -12,12 +13,19 @@
         <entry key="app/src/main/res/drawable/ic_add_user_icon5050.xml" value="0.1615" />
         <entry key="app/src/main/res/drawable/ic_avatar_default.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_location_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_article_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_event_note_24.xml" value="0.1415" />
         <entry key="app/src/main/res/drawable/ic_baseline_format_list_bulleted_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_list_pressed.xml" value="0.1595" />
+        <entry key="app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1015" />
         <entry key="app/src/main/res/drawable/ic_baseline_people_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_thumb_up_alt_24.xml" value="0.1015" />
+        <entry key="app/src/main/res/drawable/ic_baseline_thumb_up_off_alt_24.xml" value="0.1015" />
+        <entry key="app/src/main/res/drawable/ic_baseline_work_outline_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_event.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_event_calendar_icon_148537.xml" value="0.1" />
@@ -40,8 +48,10 @@
         <entry key="app/src/main/res/drawable/uc_event_icon_selector.xml" value="0.1595" />
         <entry key="app/src/main/res/layout/activity_app.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24322916666666666" />
-        <entry key="app/src/main/res/layout/card_user.xml" value="0.3890625" />
+        <entry key="app/src/main/res/layout/card_post.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/card_user.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_events.xml" value="0.24322916666666666" />
+        <entry key="app/src/main/res/layout/fragment_new_post.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.21621621621621623" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.24322916666666666" />
@@ -50,6 +60,7 @@
         <entry key="app/src/main/res/menu/auth_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.17314814814814813" />
+        <entry key="app/src/main/res/menu/menu_options.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/menu/my_profile_menu.xml" value="0.24322916666666666" />
       </map>
     </option>

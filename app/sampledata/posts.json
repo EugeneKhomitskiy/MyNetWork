@@ -1,0 +1,17 @@
+{
+  "id": 0,
+  "authorId": 0,
+  "author": "Netology",
+  "authorAvatar": "",
+  "content": "Red Square",
+  "published": "2021-08-17T16:46:58.887547Z",
+  "coords": {
+    "lat": 55.751999,
+    "long": 37.617734
+  },
+  "attachment": {
+    "url": "netology.jpg",
+    "type": "IMAGE"
+  }
+}
+

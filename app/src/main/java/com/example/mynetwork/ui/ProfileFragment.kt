@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mynetwork.R
@@ -78,6 +79,10 @@ class ProfileFragment : Fragment() {
                 binding.groupFab.visibility = View.GONE
             }
             isVisibleGroupFab = !isVisibleGroupFab
+        }
+
+        binding.fabAddPost.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_newPostFragment)
         }
 
         return binding.root

@@ -1,5 +1,6 @@
 package com.example.mynetwork.api
 
+import com.example.mynetwork.dto.Post
 import com.example.mynetwork.dto.PushToken
 import com.example.mynetwork.dto.Token
 import com.example.mynetwork.dto.User
@@ -9,6 +10,15 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
+
+    @GET("posts")
+    suspend fun getAllPosts(): Response<List<Post>>
+
+    @POST("posts")
+    suspend fun savePost(@Body post: Post): Response<Post>
+
+    @DELETE("posts/{id}")
+    suspend fun removeById(@Path("id") id: Long): Response<Unit>
 
     @GET("users")
     suspend fun getUsers() : Response<List<User>>
