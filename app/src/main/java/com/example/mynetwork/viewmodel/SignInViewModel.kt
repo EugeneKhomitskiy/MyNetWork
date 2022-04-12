@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mynetwork.api.ApiService
+import com.example.mynetwork.api.UserApiService
 import com.example.mynetwork.dto.Token
 import com.example.mynetwork.error.ApiError
 import com.example.mynetwork.model.ModelState
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val apiService: ApiService
+    private val userApiService: UserApiService
 ) : ViewModel() {
 
     val data = MutableLiveData<Token>()
@@ -27,7 +27,7 @@ class SignInViewModel @Inject constructor(
     fun updateUser(name: String, pass: String) {
         viewModelScope.launch {
             try {
-                val response = apiService.updateUser(name, pass)
+                val response = userApiService.updateUser(name, pass)
                 if (!response.isSuccessful) {
                     throw ApiError(response.message())
                 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mynetwork.api.ApiService
+import com.example.mynetwork.api.UserApiService
 import com.example.mynetwork.dto.MediaUpload
 import com.example.mynetwork.dto.Token
 import com.example.mynetwork.error.ApiError
@@ -25,7 +25,7 @@ private val noPhoto = PhotoModel()
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val apiService: ApiService
+    private val userApiService: UserApiService
 ) : ViewModel() {
 
     val data = MutableLiveData<Token>()
@@ -41,7 +41,7 @@ class SignUpViewModel @Inject constructor(
     fun registerUser(name: String, login: String, pass: String) {
         viewModelScope.launch {
             try {
-                val response = apiService.registerUser(
+                val response = userApiService.registerUser(
                     name.toRequestBody("text/plain".toMediaType()),
                     login.toRequestBody("text/plain".toMediaType()),
                     pass.toRequestBody("text/plain".toMediaType()),

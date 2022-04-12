@@ -1,7 +1,7 @@
 package com.example.mynetwork.auth
 
 import android.content.Context
-import com.example.mynetwork.api.ApiService
+import com.example.mynetwork.api.UserApiService
 import com.example.mynetwork.dto.PushToken
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -68,7 +68,7 @@ class AppAuth @Inject constructor(
     @EntryPoint
     @InstallIn(SingletonComponent::class)
     interface AppAuthEntryPoint {
-        fun getApiService(): ApiService
+        fun getUserApiService(): UserApiService
     }
 
     fun sendPushToken(token: String? = null) {
@@ -76,7 +76,7 @@ class AppAuth @Inject constructor(
             try {
                 val pushToken = PushToken(token ?: Firebase.messaging.token.await())
                 val entryPoint = EntryPointAccessors.fromApplication(context, AppAuthEntryPoint::class.java)
-                entryPoint.getApiService().save(pushToken)
+                entryPoint.getUserApiService().save(pushToken)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

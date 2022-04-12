@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mynetwork.api.ApiService
+import com.example.mynetwork.api.UserApiService
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.model.ModelState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val apiService: ApiService
+    private val userApiService: UserApiService
 ) : ViewModel() {
     private val _data = MutableLiveData<List<User>>()
     val data: LiveData<List<User>>
@@ -30,7 +30,7 @@ class UserViewModel @Inject constructor(
 
     fun getUsers() = viewModelScope.launch {
         try {
-            val response = apiService.getUsers()
+            val response = userApiService.getUsers()
             if (response.isSuccessful) {
                 _data.value = response.body()
             }
@@ -43,7 +43,7 @@ class UserViewModel @Inject constructor(
 
     fun getUserById(id: Long) = viewModelScope.launch {
         try {
-            val response = apiService.getUserById(id)
+            val response = userApiService.getUserById(id)
             if (response.isSuccessful) {
                 _user.value = response.body()
             }
