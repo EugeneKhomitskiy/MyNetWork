@@ -20,7 +20,7 @@ private val empty = Post(
     author = "",
     authorAvatar = "",
     content = "",
-    published = ""
+    published = "2021-08-17T16:46:58.887547Z"
 )
 
 @ExperimentalCoroutinesApi
