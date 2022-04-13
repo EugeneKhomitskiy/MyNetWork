@@ -1,16 +1,15 @@
 package com.example.mynetwork.viewmodel
 
 import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.model.ModelState
-import com.example.mynetwork.model.PostModel
 import com.example.mynetwork.repository.PostRepository
 import com.example.mynetwork.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,9 +28,11 @@ class PostViewModel @Inject constructor(
     private val postRepository: PostRepository
 ) : ViewModel() {
 
-    val data: LiveData<PostModel> = postRepository.data
-        .map(::PostModel)
-        .asLiveData(Dispatchers.Default)
+    private val cached = postRepository
+        .data
+        .cachedIn(viewModelScope)
+
+    val data: Flow<PagingData<Post>> = cached
 
     private val edited = MutableLiveData(empty)
 
@@ -42,20 +43,6 @@ class PostViewModel @Inject constructor(
     private val _postCreated = SingleLiveEvent<Unit>()
     val postCreated: LiveData<Unit>
         get() = _postCreated
-
-    init {
-        loadPosts()
-    }
-
-    fun loadPosts() = viewModelScope.launch {
-        try {
-            _dataState.value = ModelState(loading = true)
-            postRepository.getAllPosts()
-            _dataState.value = ModelState()
-        } catch (e: Exception) {
-            _dataState.value = ModelState(error = true)
-        }
-    }
 
     fun save() {
         edited.value?.let { post ->

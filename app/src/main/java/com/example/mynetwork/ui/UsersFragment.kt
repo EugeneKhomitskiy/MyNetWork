@@ -21,7 +21,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class UsersFragment : Fragment() {
 
-    private val viewModel: UserViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +34,7 @@ class UsersFragment : Fragment() {
             false
         )
 
-        viewModel.getUsers()
+        userViewModel.getUsers()
 
         val adapter = UserAdapter(object : UserCallback {
             override fun openProfile(user: User) {
@@ -52,10 +52,10 @@ class UsersFragment : Fragment() {
 
         binding.list.adapter = adapter
 
-        viewModel.data.observe(viewLifecycleOwner) {
+        userViewModel.data.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-        viewModel.dataState.observe(viewLifecycleOwner) { state ->
+        userViewModel.dataState.observe(viewLifecycleOwner) { state ->
             when {
                 state.error -> {
                     Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT).show()

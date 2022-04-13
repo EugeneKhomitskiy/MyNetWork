@@ -1,5 +1,6 @@
 package com.example.mynetwork.dao
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.entity.PostEntity
@@ -9,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PostDao {
     @Query("SELECT * FROM PostEntity ORDER BY id DESC")
-    fun getAllPosts(): Flow<List<PostEntity>>
+    fun getPagingSource(): PagingSource<Int, PostEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPost(postEntity: PostEntity)
@@ -22,6 +23,9 @@ interface PostDao {
 
     suspend fun savePost(postEntity: PostEntity) =
         if (postEntity.id == 0L) insertPost(postEntity) else updateContent(postEntity.id, postEntity.content)
+
+    @Query("DELETE FROM PostEntity")
+    suspend fun removeAll()
 }
 
 class Converters {
@@ -35,5 +39,5 @@ class Converters {
     fun fromSet(set: Set<Long>): String = set.joinToString(",")
 
     @TypeConverter
-    fun toSet(data: String): Set<Long> = data.split(",").map { it.toLong() }.toSet()
+    fun toSet(data: String): Set<Long> = if (data.isBlank()) emptySet() else data.split(",").map { it.toLong() }.toSet()
 }

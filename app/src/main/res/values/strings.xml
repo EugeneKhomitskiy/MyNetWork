@@ -22,4 +22,7 @@
     <string name="title_job">Job</string>
     <string name="post_text">Post text</string>
     <string name="error_empty_content">Content can\'t be empty</string>
+    <string name="liked">Liked</string>
+    <string name="mention">Mention</string>
+    <string name="retry_loading">Retry</string>
 </resources>

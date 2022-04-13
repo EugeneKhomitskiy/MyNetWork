@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.mynetwork.dao.Converters
 import com.example.mynetwork.dao.PostDao
+import com.example.mynetwork.dao.PostRemoteKeyDao
 import com.example.mynetwork.db.AppDb
 import dagger.Module
 import dagger.Provides
@@ -22,4 +23,6 @@ object DbModule {
         .build()
     @Provides
     fun providesPostDao(appDb: AppDb): PostDao = appDb.postDao
+    @Provides
+    fun providesPostKeyDao(appDb: AppDb): PostRemoteKeyDao = appDb.postRemoteKeyDao()
 }

@@ -23,4 +23,8 @@
     <string name="title_job">Место работы</string>
     <string name="post_text">Текст поста</string>
     <string name="error_empty_content">Контент не может быть пустым</string>
+    <string name="liked">Понравилось</string>
+    <string name="mention">Отметить</string>
+    <string name="retry_loading">Повторить</string>
+
 </resources>
