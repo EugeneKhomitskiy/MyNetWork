@@ -1,10 +1,14 @@
 package com.example.mynetwork.viewmodel
 
+import android.net.Uri
+import androidx.core.net.toFile
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.mynetwork.dto.MediaUpload
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.model.ModelState
+import com.example.mynetwork.model.PhotoModel
 import com.example.mynetwork.repository.PostRepository
 import com.example.mynetwork.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +25,8 @@ private val empty = Post(
     content = "",
     published = "2021-08-17T16:46:58.887547Z"
 )
+
+private val noPhoto = PhotoModel()
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -44,11 +50,20 @@ class PostViewModel @Inject constructor(
     val postCreated: LiveData<Unit>
         get() = _postCreated
 
+    private val _photo = MutableLiveData(noPhoto)
+    val photo: LiveData<PhotoModel>
+        get() = _photo
+
     fun save() {
         edited.value?.let { post ->
             viewModelScope.launch {
                 try {
-                    postRepository.savePost(post)
+                    if (_photo.value == noPhoto) {
+                        postRepository.savePost(post)
+                    } else {
+                        _photo.value?.uri?.let { MediaUpload(it.toFile()) }
+                            ?.let { postRepository.saveWithAttachment(post, it) }
+                    }
                     _dataState.value = ModelState()
                     _postCreated.value = Unit
                 } catch (e: Exception) {
@@ -65,5 +80,9 @@ class PostViewModel @Inject constructor(
             return
         }
         edited.value = edited.value?.copy(content = text)
+    }
+
+    fun changePhoto(uri: Uri?) {
+        _photo.value = PhotoModel(uri)
     }
 }

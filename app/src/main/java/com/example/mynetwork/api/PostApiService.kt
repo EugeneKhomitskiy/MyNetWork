@@ -1,6 +1,8 @@
 package com.example.mynetwork.api
 
+import com.example.mynetwork.dto.Media
 import com.example.mynetwork.dto.Post
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -26,4 +28,8 @@ interface PostApiService {
 
     @DELETE("posts/{id}")
     suspend fun removeById(@Path("id") id: Long): Response<Unit>
+
+    @Multipart
+    @POST("media")
+    suspend fun upload(@Part media: MultipartBody.Part): Response<Media>
 }

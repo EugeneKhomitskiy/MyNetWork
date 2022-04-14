@@ -26,5 +26,7 @@
     <string name="liked">Понравилось</string>
     <string name="mention">Отметить</string>
     <string name="retry_loading">Повторить</string>
-
+    <string name="description_photo">Фото</string>
+    <string name="menu_remove">Удалить</string>
+    <string name="save">Сохранить</string>
 </resources>

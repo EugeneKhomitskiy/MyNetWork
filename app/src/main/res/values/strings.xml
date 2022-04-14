@@ -25,4 +25,7 @@
     <string name="liked">Liked</string>
     <string name="mention">Mention</string>
     <string name="retry_loading">Retry</string>
+    <string name="description_photo">Photo</string>
+    <string name="menu_remove">Remove</string>
+    <string name="save">Save</string>
 </resources>

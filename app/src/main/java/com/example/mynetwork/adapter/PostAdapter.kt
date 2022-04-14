@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.CardPostBinding
 import com.example.mynetwork.dto.Post
+import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.extension.formatDate
 
 interface PostCallback {
@@ -48,6 +49,21 @@ class PostViewHolder(
                 .transform(CircleCrop())
                 .placeholder(R.drawable.ic_avatar_default)
                 .into(avatar)
+
+            post.attachment?.apply {
+                when (AttachmentType.values().first()) {
+                    AttachmentType.IMAGE -> {
+                        Glide.with(imageAttachment)
+                            .load(this.url)
+                            .placeholder(R.drawable.ic_loading_100dp)
+                            .error(R.drawable.ic_error_100dp)
+                            .timeout(10_000)
+                            .into(imageAttachment)
+                    }
+                    AttachmentType.VIDEO -> TODO()
+                    AttachmentType.AUDIO -> TODO()
+                }
+            }
 
         }
     }

@@ -14,6 +14,7 @@ import com.example.mynetwork.adapter.UserCallback
 import com.example.mynetwork.databinding.FragmentUsersBinding
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.viewmodel.UserViewModel
+import com.example.mynetwork.viewmodel.WallViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -38,6 +39,8 @@ class UsersFragment : Fragment() {
 
         val adapter = UserAdapter(object : UserCallback {
             override fun openProfile(user: User) {
+                userViewModel.getUserById(user.id)
+                //wallViewModel.load(user.id)
                 val bundle = Bundle().apply {
                     putLong("id", user.id)
                     putString("avatar", user.avatar)
