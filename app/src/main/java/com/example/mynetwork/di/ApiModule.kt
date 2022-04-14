@@ -4,6 +4,7 @@ import com.example.mynetwork.BuildConfig
 import com.example.mynetwork.auth.AppAuth
 import com.example.mynetwork.api.PostApiService
 import com.example.mynetwork.api.UserApiService
+import com.example.mynetwork.api.WallApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,4 +65,8 @@ class ApiModule {
     @Singleton
     @Provides
     fun providesUserApiService(retrofit: Retrofit): UserApiService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun providesWallApiService(retrofit: Retrofit): WallApiService = retrofit.create()
 }

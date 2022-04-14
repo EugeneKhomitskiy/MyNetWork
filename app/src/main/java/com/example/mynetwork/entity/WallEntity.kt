@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.example.mynetwork.dto.Post
 
 @Entity
-data class PostEntity(
+data class WallEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val authorId: Long,
@@ -39,7 +39,7 @@ data class PostEntity(
 
     companion object {
         fun fromDto(dto: Post) =
-            PostEntity(
+            WallEntity(
                 dto.id,
                 dto.authorId,
                 dto.author,
@@ -55,5 +55,5 @@ data class PostEntity(
     }
 }
 
-fun List<PostEntity>.toDto() = map(PostEntity::toDto)
-fun List<Post>.toPostEntity() = map(PostEntity::fromDto)
+fun List<WallEntity>.toDto() = map(WallEntity::toDto)
+fun List<Post>.toWallEntity() = map(WallEntity::fromDto)

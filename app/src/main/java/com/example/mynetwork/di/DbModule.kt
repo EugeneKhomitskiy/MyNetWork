@@ -2,9 +2,7 @@ package com.example.mynetwork.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.mynetwork.dao.Converters
-import com.example.mynetwork.dao.PostDao
-import com.example.mynetwork.dao.PostRemoteKeyDao
+import com.example.mynetwork.dao.*
 import com.example.mynetwork.db.AppDb
 import dagger.Module
 import dagger.Provides
@@ -24,5 +22,11 @@ object DbModule {
     @Provides
     fun providesPostDao(appDb: AppDb): PostDao = appDb.postDao
     @Provides
+    fun providesWallDao(appDb: AppDb): WallDao = appDb.wallDao
+    @Provides
     fun providesPostKeyDao(appDb: AppDb): PostRemoteKeyDao = appDb.postRemoteKeyDao()
+    @Provides
+    fun providesWallKeyDao(appDb: AppDb): WallRemoteKeyDao = appDb.wallRemoteKeyDao()
+    @Provides
+    fun providesUserIdDao(appDb: AppDb): UserIdDao = appDb.userIdDao()
 }

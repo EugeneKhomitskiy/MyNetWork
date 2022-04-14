@@ -24,8 +24,10 @@ import com.example.mynetwork.viewmodel.AuthViewModel
 import com.example.mynetwork.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
 
