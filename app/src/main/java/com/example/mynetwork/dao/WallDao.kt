@@ -2,6 +2,7 @@ package com.example.mynetwork.dao
 
 import androidx.paging.PagingSource
 import androidx.room.*
+import com.example.mynetwork.entity.PostEntity
 import com.example.mynetwork.entity.WallEntity
 
 @Dao
@@ -20,4 +21,7 @@ interface WallDao {
 
     @Query("DELETE FROM WallEntity")
     suspend fun removeAll()
+
+    @Query("DELETE FROM WallEntity WHERE id = :id")
+    suspend fun removeById(id: Long)
 }

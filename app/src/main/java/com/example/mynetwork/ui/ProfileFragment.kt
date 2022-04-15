@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -27,7 +28,7 @@ private val TAB_TITLES = arrayOf(
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
-    private val authViewModel: AuthViewModel by viewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
     private var isVisibleGroupFab = false
 
     override fun onCreateView(

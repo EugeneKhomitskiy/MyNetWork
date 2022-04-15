@@ -17,10 +17,13 @@ data class PostEntity(
     @Embedded
     val coords: CoordinatesEmbeddable?,
     val link: String? = null,
+    val mentionIds: Set<Long> = emptySet(),
+    val mentionedMe: Boolean = false,
     val likedByMe: Boolean = false,
     @Embedded
     val attachment: AttachmentEmbeddable?,
     val likeOwnerIds: Set<Long> = emptySet(),
+    val ownedByMe: Boolean = false
 ) {
     fun toDto() =
         Post(
@@ -32,9 +35,12 @@ data class PostEntity(
             published = published,
             coords = coords?.toDto(),
             link = link,
+            mentionIds = mentionIds,
+            mentionedMe = mentionedMe,
             likedByMe = likedByMe,
             attachment = attachment?.toDto(),
-            likeOwnerIds = likeOwnerIds
+            likeOwnerIds = likeOwnerIds,
+            ownedByMe = ownedByMe
         )
 
     companion object {
@@ -48,9 +54,12 @@ data class PostEntity(
                 dto.published,
                 CoordinatesEmbeddable.fromDto(dto.coords),
                 dto.link,
+                dto.mentionIds,
+                dto.mentionedMe,
                 dto.likedByMe,
                 AttachmentEmbeddable.fromDto(dto.attachment),
-                dto.likeOwnerIds
+                dto.likeOwnerIds,
+                dto.ownedByMe
             )
     }
 }

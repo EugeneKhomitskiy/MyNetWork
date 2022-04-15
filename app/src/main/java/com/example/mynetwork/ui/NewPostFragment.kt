@@ -9,9 +9,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.FragmentNewPostBinding
+import com.example.mynetwork.dto.Post
 import com.example.mynetwork.util.AndroidUtils
 import com.example.mynetwork.viewmodel.PostViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker

@@ -21,6 +21,7 @@ data class WallEntity(
     @Embedded
     val attachment: AttachmentEmbeddable?,
     val likeOwnerIds: Set<Long> = emptySet(),
+    val ownedByMe: Boolean = false
 ) {
     fun toDto() =
         Post(
@@ -34,7 +35,8 @@ data class WallEntity(
             link = link,
             likedByMe = likedByMe,
             attachment = attachment?.toDto(),
-            likeOwnerIds = likeOwnerIds
+            likeOwnerIds = likeOwnerIds,
+            ownedByMe = ownedByMe
         )
 
     companion object {
@@ -50,7 +52,8 @@ data class WallEntity(
                 dto.link,
                 dto.likedByMe,
                 AttachmentEmbeddable.fromDto(dto.attachment),
-                dto.likeOwnerIds
+                dto.likeOwnerIds,
+                dto.ownedByMe
             )
     }
 }
