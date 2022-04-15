@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.collectLatest
 @AndroidEntryPoint
 class WallFragment : Fragment() {
 
-    private val wallViewModel: WallViewModel by activityViewModels()
+    private val wallViewModel: WallViewModel by viewModels()
     private val postViewModel: PostViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -69,10 +69,5 @@ class WallFragment : Fragment() {
         binding.swipeRefresh.setOnRefreshListener(adapter::refresh)
 
         return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        wallViewModel.clearWall()
     }
 }

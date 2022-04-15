@@ -22,4 +22,7 @@ interface WallRemoteKeyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(keys: List<WallRemoteKeyEntity>)
+
+    @Query("DELETE FROM WallRemoteKeyEntity")
+    suspend fun removeAll()
 }

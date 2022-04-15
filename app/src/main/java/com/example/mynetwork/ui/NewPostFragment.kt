@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.FragmentNewPostBinding
@@ -133,6 +131,7 @@ class NewPostFragment : Fragment() {
         }
 
         postViewModel.postCreated.observe(viewLifecycleOwner) {
+            postViewModel.edit(Post.empty)
             findNavController().navigateUp()
         }
 

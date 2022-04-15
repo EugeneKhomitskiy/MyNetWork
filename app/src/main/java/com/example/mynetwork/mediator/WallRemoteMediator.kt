@@ -30,15 +30,14 @@ class WallRemoteMediator(
             val userid = userIdDao.id()
 
             val response = when (loadType) {
-                LoadType.REFRESH -> wallApiService.getWallLatest(userid, state.config.initialLoadSize
-                )
-
-                LoadType.PREPEND -> {
-                    val id = wallRemoteKeyDao.max() ?: return MediatorResult.Success(
-                        endOfPaginationReached = false
-                    )
-                    wallApiService.getWallAfter(userid, id, state.config.pageSize)
+                LoadType.REFRESH -> {
+                    wallRemoteKeyDao.max()?.let {
+                        wallApiService.getWallAfter(userid, it, state.config.pageSize)
+                    } ?: wallApiService.getWallLatest(userid, state.config.initialLoadSize)
                 }
+
+                LoadType.PREPEND -> return MediatorResult.Success(true)
+
                 LoadType.APPEND -> {
                     val id = wallRemoteKeyDao.min() ?: return MediatorResult.Success(
                         endOfPaginationReached = false

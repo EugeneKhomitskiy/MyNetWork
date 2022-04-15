@@ -11,7 +11,6 @@ import com.example.mynetwork.dto.Media
 import com.example.mynetwork.dto.MediaUpload
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.entity.PostEntity
-import com.example.mynetwork.entity.WallEntity
 import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.error.ApiError
 import com.example.mynetwork.error.AppError

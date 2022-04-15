@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mynetwork.R
 import com.example.mynetwork.adapter.ViewPagerAdapter
 import com.example.mynetwork.databinding.FragmentProfileBinding
+import com.example.mynetwork.dto.Post
 import com.example.mynetwork.viewmodel.AuthViewModel
+import com.example.mynetwork.viewmodel.PostViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,6 +30,7 @@ private val TAB_TITLES = arrayOf(
 class ProfileFragment : Fragment() {
 
     private val authViewModel: AuthViewModel by activityViewModels()
+    private val postViewModel: PostViewModel by activityViewModels()
     private var isVisibleGroupFab = false
 
     override fun onCreateView(
@@ -83,6 +85,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.fabAddPost.setOnClickListener {
+            postViewModel.edit(Post.empty)
             findNavController().navigate(R.id.action_navigation_profile_to_newPostFragment)
         }
 

@@ -15,4 +15,15 @@ data class Post(
     val likedByMe: Boolean = false,
     val attachment: Attachment? = null,
     val ownedByMe: Boolean = false
-)
+) {
+    companion object {
+        val empty = Post(
+            id = 0,
+            authorId = 0,
+            author = "",
+            authorAvatar = "",
+            content = "",
+            published = "2021-08-17T16:46:58.887547Z"
+        )
+    }
+}

@@ -6,6 +6,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface WallRepository {
     val data : Flow<PagingData<Post>>
-
-    suspend fun load(id: Long)
 }
