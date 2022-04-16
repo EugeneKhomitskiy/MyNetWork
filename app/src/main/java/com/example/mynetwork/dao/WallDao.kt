@@ -24,4 +24,24 @@ interface WallDao {
 
     @Query("DELETE FROM WallEntity WHERE id = :id")
     suspend fun removeById(id: Long)
+
+    @Query(
+        """
+           UPDATE WallEntity SET
+               `likeOwnerIds` = `likeOwnerIds` + 1,
+               likedByMe = 1
+           WHERE id = :id AND likedByMe = 0;
+        """,
+    )
+    suspend fun likeById(id: Long)
+
+    @Query(
+        """
+           UPDATE WallEntity SET
+               `likeOwnerIds` = `likeOwnerIds` - 1,
+               likedByMe = 0
+           WHERE id = :id AND likedByMe = 1;
+        """,
+    )
+    suspend fun dislikeById(id: Long)
 }

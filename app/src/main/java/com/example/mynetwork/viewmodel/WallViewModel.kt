@@ -30,7 +30,10 @@ class WallViewModel @Inject constructor(
         .flatMapLatest { (myId, _) ->
             cached.map { pagingData ->
                 pagingData.map { post ->
-                    post.copy(ownedByMe = post.authorId == myId)
+                    post.copy(
+                        ownedByMe = post.authorId == myId,
+                        likedByMe = post.likeOwnerIds.contains(myId)
+                    )
                 }
             }
         }
