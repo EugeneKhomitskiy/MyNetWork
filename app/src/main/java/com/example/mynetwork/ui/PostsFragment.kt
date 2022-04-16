@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import com.example.mynetwork.adapter.PostAdapter
 import com.example.mynetwork.adapter.PostCallback
 import com.example.mynetwork.databinding.FragmentPostsBinding
 import com.example.mynetwork.dto.Post
+import com.example.mynetwork.viewmodel.AuthViewModel
 import com.example.mynetwork.viewmodel.PostViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,6 +26,7 @@ import kotlinx.coroutines.flow.collectLatest
 class PostsFragment : Fragment() {
 
     private val postViewModel: PostViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +52,18 @@ class PostsFragment : Fragment() {
                 postViewModel.edit(post)
                 val bundle = Bundle().apply { putString("content", post.content) }
                 findNavController().navigate(R.id.newPostFragment, bundle)
+            }
+
+            override fun onLike(post: Post) {
+                if (authViewModel.authenticated) {
+                    if (!post.likedByMe) postViewModel.likeById(post.id) else postViewModel.dislikeById(post.id)
+                } else {
+                    Toast.makeText(
+                        activity,
+                        R.string.error_auth,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         })
 

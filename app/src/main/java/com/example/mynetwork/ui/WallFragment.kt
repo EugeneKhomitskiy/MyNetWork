@@ -51,6 +51,14 @@ class WallFragment : Fragment() {
                 val bundle = Bundle().apply { putString("content", post.content) }
                 findNavController().navigate(R.id.newPostFragment, bundle)
             }
+
+            override fun onLike(post: Post) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onMention(post: Post) {
+                TODO("Not yet implemented")
+            }
         })
 
         binding.list.adapter = adapter

@@ -20,6 +20,7 @@ interface PostCallback {
     fun openPost(post: Post)
     fun onRemove(post: Post)
     fun onEdit(post: Post)
+    fun onLike(post: Post)
 }
 
 class PostAdapter(private val postCallback: PostCallback) :
@@ -47,6 +48,8 @@ class PostViewHolder(
             author.text = post.author
             published.text = formatDate(post.published)
             content.text = post.content
+            like.isChecked = post.likedByMe
+            likers.text = post.likeOwnerIds.count().toString()
 
             Glide.with(avatar)
                 .load("${post.authorAvatar}")
@@ -67,6 +70,10 @@ class PostViewHolder(
                     AttachmentType.VIDEO -> TODO()
                     AttachmentType.AUDIO -> TODO()
                 }
+            }
+
+            like.setOnClickListener {
+                postCallback.onLike(post)
             }
 
             menu.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE

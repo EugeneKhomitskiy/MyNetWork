@@ -22,8 +22,31 @@ interface PostDao {
     suspend fun updateContent(id: Long, content: String)
 
     suspend fun savePost(postEntity: PostEntity) =
-        if (postEntity.id == 0L) insertPost(postEntity) else updateContent(postEntity.id, postEntity.content)
+        if (postEntity.id == 0L) insertPost(postEntity) else updateContent(
+            postEntity.id,
+            postEntity.content
+        )
 
     @Query("DELETE FROM PostEntity WHERE id = :id")
     suspend fun removeById(id: Long)
+
+    @Query(
+        """
+           UPDATE PostEntity SET
+               `likeOwnerIds` = `likeOwnerIds` + 1,
+               likedByMe = 1
+           WHERE id = :id AND likedByMe = 0;
+        """,
+    )
+    suspend fun likeById(id: Long)
+
+    @Query(
+        """
+           UPDATE PostEntity SET
+               `likeOwnerIds` = `likeOwnerIds` - 1,
+               likedByMe = 0
+           WHERE id = :id AND likedByMe = 1;
+        """,
+    )
+    suspend fun dislikeById(id: Long)
 }

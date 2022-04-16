@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable-xhdpi/ic_error_100dp.xml" value="0.229" />
         <entry key="app/src/main/res/drawable-xhdpi/ic_loading_100dp.xml" value="0.1415" />
         <entry key="app/src/main/res/drawable-xxxhdpi/ic_error_100dp.xml" value="0.1865" />
+        <entry key="app/src/main/res/drawable/aaaaaaaaaaa.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/ic_add_user_icon.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/ic_add_user_icon5050.xml" value="0.1615" />
         <entry key="app/src/main/res/drawable/ic_avatar_default.xml" value="0.1" />
@@ -40,6 +41,8 @@
         <entry key="app/src/main/res/drawable/ic_group_people_pressed.xml" value="0.1595" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_like_selector.xml" value="0.1115" />
+        <entry key="app/src/main/res/drawable/ic_liked.xml" value="0.226" />
         <entry key="app/src/main/res/drawable/ic_list_selector.xml" value="0.1595" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_outline_favorite_border_24.xml" value="0.1975" />
