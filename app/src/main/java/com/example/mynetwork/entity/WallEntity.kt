@@ -17,6 +17,8 @@ data class WallEntity(
     @Embedded
     val coords: CoordinatesEmbeddable?,
     val link: String? = null,
+    val mentionIds: Set<Long> = emptySet(),
+    val mentionedMe: Boolean = false,
     val likedByMe: Boolean = false,
     @Embedded
     val attachment: AttachmentEmbeddable?,
@@ -33,6 +35,8 @@ data class WallEntity(
             published = published,
             coords = coords?.toDto(),
             link = link,
+            mentionIds = mentionIds,
+            mentionedMe = mentionedMe,
             likedByMe = likedByMe,
             attachment = attachment?.toDto(),
             likeOwnerIds = likeOwnerIds,
@@ -50,6 +54,8 @@ data class WallEntity(
                 dto.published,
                 CoordinatesEmbeddable.fromDto(dto.coords),
                 dto.link,
+                dto.mentionIds,
+                dto.mentionedMe,
                 dto.likedByMe,
                 AttachmentEmbeddable.fromDto(dto.attachment),
                 dto.likeOwnerIds,

@@ -51,6 +51,7 @@ class PostRepositoryImpl @Inject constructor(
             }
             val data = response.body() ?: throw ApiError(response.message())
             postDao.insertPost(PostEntity.fromDto(data))
+            wallDao.insertPost(WallEntity.fromDto(data))
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {

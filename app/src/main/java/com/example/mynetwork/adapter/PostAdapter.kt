@@ -1,7 +1,6 @@
 package com.example.mynetwork.adapter
 
 import android.annotation.SuppressLint
-import android.media.audiofx.BassBoost
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ interface OnPostInteractionListener {
     fun onRemove(post: Post)
     fun onEdit(post: Post)
     fun onLike(post: Post)
+    fun onMention(post: Post)
 }
 
 class PostAdapter(private val onPostInteractionListener: OnPostInteractionListener) :
@@ -51,6 +51,7 @@ class PostViewHolder(
             content.text = post.content
             like.isChecked = post.likedByMe
             likers.text = post.likeOwnerIds.count().toString()
+            mentions.text = post.mentionIds.count().toString()
 
             Glide.with(avatar)
                 .load("${post.authorAvatar}")
@@ -75,6 +76,10 @@ class PostViewHolder(
 
             like.setOnClickListener {
                 onPostInteractionListener.onLike(post)
+            }
+
+            mention.setOnClickListener {
+                onPostInteractionListener.onMention(post)
             }
 
             menu.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE

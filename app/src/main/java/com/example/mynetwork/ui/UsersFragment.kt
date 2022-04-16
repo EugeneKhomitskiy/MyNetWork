@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
@@ -13,6 +14,7 @@ import com.example.mynetwork.adapter.OnUserInteractionListener
 import com.example.mynetwork.adapter.UserAdapter
 import com.example.mynetwork.databinding.FragmentUsersBinding
 import com.example.mynetwork.dto.User
+import com.example.mynetwork.viewmodel.PostViewModel
 import com.example.mynetwork.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,6 +24,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class UsersFragment : Fragment() {
 
     private val userViewModel: UserViewModel by viewModels()
+    private val postViewModel: PostViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,17 +39,25 @@ class UsersFragment : Fragment() {
 
         userViewModel.getUsers()
 
+        val open = arguments?.getString("open")
+
         val adapter = UserAdapter(object : OnUserInteractionListener {
             override fun openProfile(user: User) {
-                userViewModel.getUserById(user.id)
-                val bundle = Bundle().apply {
-                    putLong("id", user.id)
-                    putString("avatar", user.avatar)
-                    putString("name", user.name)
-                }
-                findNavController().apply {
-                    this.popBackStack(R.id.navigation_users, true)
-                    this.navigate(R.id.navigation_profile, bundle)
+                if (open == "mention") {
+                    postViewModel.changeMentionIds(user.id)
+                    postViewModel.save()
+                    findNavController().navigateUp()
+                } else {
+                    userViewModel.getUserById(user.id)
+                    val bundle = Bundle().apply {
+                        putLong("id", user.id)
+                        putString("avatar", user.avatar)
+                        putString("name", user.name)
+                    }
+                    findNavController().apply {
+                        this.popBackStack(R.id.navigation_users, true)
+                        this.navigate(R.id.navigation_profile, bundle)
+                    }
                 }
             }
         })

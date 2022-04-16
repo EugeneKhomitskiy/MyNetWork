@@ -66,6 +66,20 @@ class WallFragment : Fragment() {
                     ).show()
                 }
             }
+
+            override fun onMention(post: Post) {
+                if (authViewModel.authenticated) {
+                    postViewModel.edit(post)
+                    val bundle = Bundle().apply { putString("open", "mention") }
+                    findNavController().navigate(R.id.navigation_users, bundle)
+                } else {
+                    Toast.makeText(
+                        activity,
+                        R.string.error_auth,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         })
 
         binding.list.adapter = adapter

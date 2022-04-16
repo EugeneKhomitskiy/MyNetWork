@@ -91,14 +91,12 @@ class PostViewModel @Inject constructor(
     }
 
     fun changeContent(content: String) {
-        Log.d("aaa", edited.value?.id.toString())
         edited.value?.let {
             val text = content.trim()
             if (edited.value?.content != text) {
                 edited.value = edited.value?.copy(content = text)
             }
         }
-
     }
 
     fun changePhoto(uri: Uri?) {
@@ -133,6 +131,14 @@ class PostViewModel @Inject constructor(
         } catch (e: Exception) {
             _dataState.value =
                 ModelState(error = true)
+        }
+    }
+
+    fun changeMentionIds(id: Long) {
+        edited.value?.let {
+            if (edited.value?.mentionIds?.contains(id) == false) {
+                edited.value = edited.value?.copy(mentionIds = it.mentionIds.plus(id))
+            }
         }
     }
 }
