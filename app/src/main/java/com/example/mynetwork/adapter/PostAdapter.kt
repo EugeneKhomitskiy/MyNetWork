@@ -1,6 +1,7 @@
 package com.example.mynetwork.adapter
 
 import android.annotation.SuppressLint
+import android.media.audiofx.BassBoost
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,18 +17,18 @@ import com.example.mynetwork.dto.Post
 import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.extension.formatDate
 
-interface PostCallback {
+interface OnPostInteractionListener {
     fun openPost(post: Post)
     fun onRemove(post: Post)
     fun onEdit(post: Post)
     fun onLike(post: Post)
 }
 
-class PostAdapter(private val postCallback: PostCallback) :
+class PostAdapter(private val onPostInteractionListener: OnPostInteractionListener) :
     PagingDataAdapter<Post, PostViewHolder>(PostDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, postCallback)
+        return PostViewHolder(binding, onPostInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -39,7 +40,7 @@ class PostAdapter(private val postCallback: PostCallback) :
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val postCallback: PostCallback
+    private val onPostInteractionListener: OnPostInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("NewApi")
@@ -73,7 +74,7 @@ class PostViewHolder(
             }
 
             like.setOnClickListener {
-                postCallback.onLike(post)
+                onPostInteractionListener.onLike(post)
             }
 
             menu.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE
@@ -84,11 +85,11 @@ class PostViewHolder(
                     setOnMenuItemClickListener { item ->
                         when (item.itemId) {
                             R.id.remove -> {
-                                postCallback.onRemove(post)
+                                onPostInteractionListener.onRemove(post)
                                 true
                             }
                             R.id.edit -> {
-                                postCallback.onEdit(post)
+                                onPostInteractionListener.onEdit(post)
                                 true
                             }
                             else -> false

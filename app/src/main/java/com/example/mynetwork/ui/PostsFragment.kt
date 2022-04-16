@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.mynetwork.R
+import com.example.mynetwork.adapter.OnPostInteractionListener
 import com.example.mynetwork.adapter.PostAdapter
-import com.example.mynetwork.adapter.PostCallback
 import com.example.mynetwork.databinding.FragmentPostsBinding
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.viewmodel.AuthViewModel
@@ -39,7 +39,7 @@ class PostsFragment : Fragment() {
             false
         )
 
-        val adapter = PostAdapter(object : PostCallback {
+        val adapter = PostAdapter(object : OnPostInteractionListener {
             override fun openPost(post: Post) {
                 TODO("Not yet implemented")
             }

@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
+import com.example.mynetwork.adapter.OnUserInteractionListener
 import com.example.mynetwork.adapter.UserAdapter
-import com.example.mynetwork.adapter.UserCallback
 import com.example.mynetwork.databinding.FragmentUsersBinding
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.viewmodel.UserViewModel
@@ -36,7 +36,7 @@ class UsersFragment : Fragment() {
 
         userViewModel.getUsers()
 
-        val adapter = UserAdapter(object : UserCallback {
+        val adapter = UserAdapter(object : OnUserInteractionListener {
             override fun openProfile(user: User) {
                 userViewModel.getUserById(user.id)
                 val bundle = Bundle().apply {
