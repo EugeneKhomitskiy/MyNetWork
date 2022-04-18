@@ -11,6 +11,8 @@ import com.example.mynetwork.entity.*
         WallEntity::class,
         PostRemoteKeyEntity::class,
         WallRemoteKeyEntity::class,
+        EventRemoteKeyEntity::class,
+        EventEntity::class,
         UserIdEntity::class],
     version = 1
 )
@@ -18,7 +20,9 @@ import com.example.mynetwork.entity.*
 abstract class AppDb : RoomDatabase() {
     abstract val postDao: PostDao
     abstract val wallDao: WallDao
+    abstract val eventDao: EventDao
     abstract fun postRemoteKeyDao(): PostRemoteKeyDao
     abstract fun wallRemoteKeyDao(): WallRemoteKeyDao
+    abstract fun eventRemoteKeyDao(): EventRemoteKeyDao
     abstract fun userIdDao(): UserIdDao
 }

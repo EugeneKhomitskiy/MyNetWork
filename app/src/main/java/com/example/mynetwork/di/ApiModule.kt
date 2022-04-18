@@ -1,6 +1,7 @@
 package com.example.mynetwork.di
 
 import com.example.mynetwork.BuildConfig
+import com.example.mynetwork.api.EventApiService
 import com.example.mynetwork.auth.AppAuth
 import com.example.mynetwork.api.PostApiService
 import com.example.mynetwork.api.UserApiService
@@ -69,4 +70,8 @@ class ApiModule {
     @Singleton
     @Provides
     fun providesWallApiService(retrofit: Retrofit): WallApiService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun providesEventApiService(retrofit: Retrofit): EventApiService = retrofit.create()
 }

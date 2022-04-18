@@ -89,6 +89,10 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_profile_to_newPostFragment)
         }
 
+        binding.fabAddEvent.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_newEventFragment)
+        }
+
         return binding.root
     }
 }

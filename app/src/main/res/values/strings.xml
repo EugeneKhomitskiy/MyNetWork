@@ -29,4 +29,9 @@
     <string name="menu_remove">Remove</string>
     <string name="menu_edit">Edit</string>
     <string name="save">Save</string>
+    <string name="participants">Participants</string>
+    <string name="speakers">Speakers</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="participate">Participate</string>
 </resources>

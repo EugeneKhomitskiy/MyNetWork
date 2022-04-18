@@ -14,7 +14,7 @@ import com.example.mynetwork.R
 import com.example.mynetwork.databinding.CardPostBinding
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.enumeration.AttachmentType
-import com.example.mynetwork.extension.formatDate
+import com.example.mynetwork.extension.formatToDate
 
 interface OnPostInteractionListener {
     fun openPost(post: Post)
@@ -47,7 +47,7 @@ class PostViewHolder(
     fun bind(post: Post) {
         with(binding) {
             author.text = post.author
-            published.text = formatDate(post.published)
+            published.text = formatToDate(post.published)
             content.text = post.content
             like.isChecked = post.likedByMe
             likers.text = post.likeOwnerIds.count().toString()

@@ -1,9 +1,6 @@
 package com.example.mynetwork.di
 
-import com.example.mynetwork.repository.PostRepository
-import com.example.mynetwork.repository.PostRepositoryImpl
-import com.example.mynetwork.repository.WallRepository
-import com.example.mynetwork.repository.WallRepositoryImpl
+import com.example.mynetwork.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,4 +17,8 @@ interface RepositoryModule {
     @Binds
     @Singleton
     fun bindsWallService(impl: WallRepositoryImpl): WallRepository
+
+    @Binds
+    @Singleton
+    fun bindsEventService(impl: EventRepositoryImpl): EventRepository
 }

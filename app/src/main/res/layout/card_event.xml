@@ -21,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="matrix"
-            app:layout_constraintBottom_toTopOf="@id/lowerBarrier"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content"
+            app:layout_constraintTop_toBottomOf="@+id/dateTime"
+            app:layout_constraintBottom_toTopOf="@id/lowerBarrier"
             tools:ignore="ContentDescription" />
 
         <ImageView
@@ -117,8 +117,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
+            android:layout_marginStart="@dimen/common_spacing"
             app:icon="@drawable/ic_outline_favorite_border_24"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/like"
             app:layout_constraintTop_toBottomOf="@id/lowerBarrier"/>
 
         <com.google.android.material.button.MaterialButton
@@ -132,15 +133,15 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/mentions"
+            android:id="@+id/participate"
             style="@style/Theme.MyNetWork.MaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:layout_marginStart="@dimen/common_spacing"
-            app:icon="@drawable/ic_outline_people_alt_24"
-            app:layout_constraintStart_toEndOf="@id/likers"
-            app:layout_constraintTop_toBottomOf="@id/lowerBarrier"/>
+            android:text="@string/participate"
+            android:textColor="@color/checkbox_tint"
+            app:layout_constraintTop_toBottomOf="@id/lowerBarrier"
+            app:layout_constraintEnd_toStartOf="@+id/geo"
+            app:layout_constraintStart_toEndOf="@+id/likers" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/like"
@@ -148,20 +149,11 @@
             android:layout_width="@dimen/min_size_button"
             android:layout_height="@dimen/min_size_button"
             android:checkable="true"
-            app:iconTint="@color/checkbox_tint"
             app:icon="@drawable/ic_like_selector"
+            app:layout_constraintTop_toBottomOf="@id/lowerBarrier"
+            app:layout_constraintEnd_toStartOf="@id/likers"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/likers" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/mention"
-            style="@style/Theme.MyNetWork.MaterialButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mention"
-            android:layout_marginStart="@dimen/common_spacing"
-            app:layout_constraintStart_toEndOf="@id/like"
-            app:layout_constraintTop_toBottomOf="@id/mentions"/>
+            app:iconTint="@color/checkbox_tint" />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
@@ -180,6 +172,32 @@
             android:layout_height="match_parent"
             app:dividerColor="@color/grey"
             app:layout_constraintTop_toBottomOf="@id/upperBarrier"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/speakers"
+            style="@style/Theme.MyNetWork.MaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speakers"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/like"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/participants"
+            style="@style/Theme.MyNetWork.MaterialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/participants"
+            android:layout_marginStart="@dimen/common_spacing"
+            app:layout_constraintStart_toEndOf="@id/speakers"
+            app:layout_constraintTop_toBottomOf="@id/likers"/>
+
+        <TextView
+            android:id="@+id/dateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            app:layout_constraintTop_toBottomOf="@id/content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

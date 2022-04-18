@@ -30,4 +30,9 @@
     <string name="menu_remove">Удалить</string>
     <string name="menu_edit">Редактировать</string>
     <string name="save">Сохранить</string>
+    <string name="participants">Участники</string>
+    <string name="speakers">Спикеры</string>
+    <string name="date">Дата</string>
+    <string name="time">Время</string>
+    <string name="participate">Участвую</string>
 </resources>
