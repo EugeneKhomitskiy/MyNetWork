@@ -5,5 +5,5 @@ import com.example.mynetwork.dto.Post
 import kotlinx.coroutines.flow.Flow
 
 interface WallRepository {
-    val data : Flow<PagingData<Post>>
+    fun userWall(userId: Long): Flow<PagingData<Post>>
 }

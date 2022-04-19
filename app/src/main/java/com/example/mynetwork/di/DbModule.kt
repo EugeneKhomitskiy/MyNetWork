@@ -22,13 +22,9 @@ object DbModule {
     @Provides
     fun providesPostDao(appDb: AppDb): PostDao = appDb.postDao
     @Provides
-    fun providesWallDao(appDb: AppDb): WallDao = appDb.wallDao
-    @Provides
     fun providesEventDao(appDb: AppDb): EventDao = appDb.eventDao
     @Provides
     fun providesPostKeyDao(appDb: AppDb): PostRemoteKeyDao = appDb.postRemoteKeyDao()
-    @Provides
-    fun providesWallKeyDao(appDb: AppDb): WallRemoteKeyDao = appDb.wallRemoteKeyDao()
     @Provides
     fun providesEventKeyDao(appDb: AppDb): EventRemoteKeyDao = appDb.eventRemoteKeyDao()
     @Provides

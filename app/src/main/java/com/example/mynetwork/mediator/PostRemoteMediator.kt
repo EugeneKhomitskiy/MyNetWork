@@ -15,7 +15,7 @@ import com.example.mynetwork.error.ApiError
 
 @OptIn(ExperimentalPagingApi::class)
 class PostRemoteMediator(
-    private val postService: PostApiService,
+    private val postApiService: PostApiService,
     private val postDao: PostDao,
     private val postRemoteKeyDao: PostRemoteKeyDao,
     private val appDb: AppDb
@@ -27,7 +27,7 @@ class PostRemoteMediator(
     ): MediatorResult {
         try {
             val response = when (loadType) {
-                LoadType.REFRESH -> postService.getLatest(state.config.pageSize)
+                LoadType.REFRESH -> postApiService.getLatest(state.config.pageSize)
 
                 LoadType.PREPEND -> return MediatorResult.Success(true)
 
@@ -35,7 +35,7 @@ class PostRemoteMediator(
                     val id = postRemoteKeyDao.min() ?: return MediatorResult.Success(
                         endOfPaginationReached = false
                     )
-                    postService.getBefore(id, state.config.pageSize)
+                    postApiService.getBefore(id, state.config.pageSize)
                 }
             }
 

@@ -45,6 +45,7 @@ class PostViewHolder(
 
     @SuppressLint("NewApi")
     fun bind(post: Post) {
+
         with(binding) {
             author.text = post.author
             published.text = formatToDate(post.published)
@@ -52,6 +53,7 @@ class PostViewHolder(
             like.isChecked = post.likedByMe
             likers.text = post.likeOwnerIds.count().toString()
             mentions.text = post.mentionIds.count().toString()
+            imageAttachment.visibility = if (post.attachment == null) View.GONE else View.VISIBLE
 
             Glide.with(avatar)
                 .load("${post.authorAvatar}")

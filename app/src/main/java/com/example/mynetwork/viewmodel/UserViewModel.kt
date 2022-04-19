@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mynetwork.api.UserApiService
-import com.example.mynetwork.dao.UserIdDao
-import com.example.mynetwork.dao.WallDao
 import com.example.mynetwork.dto.User
-import com.example.mynetwork.entity.UserIdEntity
 import com.example.mynetwork.model.ModelState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,9 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userApiService: UserApiService,
-    private val userIdDao: UserIdDao,
-    private val wallDao: WallDao
+    private val userApiService: UserApiService
 ) : ViewModel() {
     private val _data = MutableLiveData<List<User>>()
     val data: LiveData<List<User>>
@@ -52,8 +47,6 @@ class UserViewModel @Inject constructor(
             if (response.isSuccessful) {
                 _user.value = response.body()
             }
-            userIdDao.removeAll()
-            userIdDao.insert(UserIdEntity(id))
         } catch (e: IOException) {
             _dataState.postValue(ModelState(error = true))
         } catch (e: Exception) {

@@ -4,14 +4,12 @@ import androidx.paging.*
 import com.example.mynetwork.api.PostApiService
 import com.example.mynetwork.dao.PostDao
 import com.example.mynetwork.dao.PostRemoteKeyDao
-import com.example.mynetwork.dao.WallDao
 import com.example.mynetwork.db.AppDb
 import com.example.mynetwork.dto.Attachment
 import com.example.mynetwork.dto.Media
 import com.example.mynetwork.dto.MediaUpload
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.entity.PostEntity
-import com.example.mynetwork.entity.WallEntity
 import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.error.ApiError
 import com.example.mynetwork.error.AppError
@@ -27,7 +25,6 @@ import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
     private val postDao: PostDao,
-    private val wallDao: WallDao,
     private val postApiService: PostApiService,
     postRemoteKeyDao: PostRemoteKeyDao,
     appDb: AppDb
@@ -51,7 +48,6 @@ class PostRepositoryImpl @Inject constructor(
             }
             val data = response.body() ?: throw ApiError(response.message())
             postDao.insertPost(PostEntity.fromDto(data))
-            wallDao.insertPost(WallEntity.fromDto(data))
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
@@ -94,7 +90,6 @@ class PostRepositoryImpl @Inject constructor(
     override suspend fun removeById(id: Long) {
         try {
             postDao.removeById(id)
-            wallDao.removeById(id)
             val response = postApiService.removeById(id)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
@@ -109,14 +104,12 @@ class PostRepositoryImpl @Inject constructor(
     override suspend fun likeById(id: Long) {
         try {
             postDao.likeById(id)
-            wallDao.likeById(id)
             val response = postApiService.likeById(id)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
             }
             val data = response.body() ?: throw ApiError(response.message())
             postDao.insertPost(PostEntity.fromDto(data))
-            wallDao.insertPost(WallEntity.fromDto(data))
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
@@ -127,14 +120,12 @@ class PostRepositoryImpl @Inject constructor(
     override suspend fun dislikeById(id: Long) {
         try {
             postDao.dislikeById(id)
-            wallDao.dislikeById(id)
             val response = postApiService.dislikeById(id)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
             }
             val data = response.body() ?: throw ApiError(response.message())
             postDao.insertPost(PostEntity.fromDto(data))
-            wallDao.insertPost(WallEntity.fromDto(data))
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
