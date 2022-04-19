@@ -17,6 +17,7 @@ import com.example.mynetwork.databinding.FragmentPostsBinding
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.viewmodel.AuthViewModel
 import com.example.mynetwork.viewmodel.PostViewModel
+import com.example.mynetwork.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -27,6 +28,7 @@ class PostsFragment : Fragment() {
 
     private val postViewModel: PostViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,6 +82,16 @@ class PostsFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            }
+
+            override fun onOpenMentions(post: Post) {
+                userViewModel.getMentionsIds(post)
+                findNavController().navigate(R.id.action_navigation_posts_to_bottomSheetFragment)
+            }
+
+            override fun onOpenLikeOwners(post: Post) {
+                userViewModel.getLikeOwnersIds(post)
+                findNavController().navigate(R.id.action_navigation_posts_to_bottomSheetFragment)
             }
         })
 

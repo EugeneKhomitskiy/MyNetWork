@@ -4,6 +4,5 @@ data class User(
     var id: Long,
     val login: String,
     val name: String,
-    val avatar: String? = null,
-    val authorities: List<String>
+    val avatar: String? = null
 )

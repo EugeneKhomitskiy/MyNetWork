@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 
-
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class WallFragment : Fragment() {
@@ -31,6 +30,7 @@ class WallFragment : Fragment() {
     private val wallViewModel: WallViewModel by activityViewModels()
     private val postViewModel: PostViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,6 +80,16 @@ class WallFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+            }
+
+            override fun onOpenMentions(post: Post) {
+                userViewModel.getMentionsIds(post)
+                findNavController().navigate(R.id.bottomSheetFragment)
+            }
+
+            override fun onOpenLikeOwners(post: Post) {
+                userViewModel.getLikeOwnersIds(post)
+                findNavController().navigate(R.id.bottomSheetFragment)
             }
         })
 

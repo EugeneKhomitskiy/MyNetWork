@@ -1,7 +1,5 @@
 package com.example.mynetwork.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.map
 import com.example.mynetwork.auth.AppAuth
@@ -18,10 +16,6 @@ class WallViewModel @Inject constructor(
     private val wallRepository: WallRepository,
     private val appAuth: AppAuth
 ) : ViewModel() {
-
-    private val _userId = MutableLiveData<Long>()
-    val userId: LiveData<Long>
-        get() = _userId
 
     fun userWall(id: Long) = appAuth.authStateFlow
         .flatMapLatest { (myId, _) ->

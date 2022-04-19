@@ -22,6 +22,8 @@ interface OnPostInteractionListener {
     fun onEdit(post: Post)
     fun onLike(post: Post)
     fun onMention(post: Post)
+    fun onOpenMentions(post: Post)
+    fun onOpenLikeOwners(post: Post)
 }
 
 class PostAdapter(private val onPostInteractionListener: OnPostInteractionListener) :
@@ -82,6 +84,14 @@ class PostViewHolder(
 
             mention.setOnClickListener {
                 onPostInteractionListener.onMention(post)
+            }
+
+            mentions.setOnClickListener {
+                onPostInteractionListener.onOpenMentions(post)
+            }
+
+            likers.setOnClickListener {
+                onPostInteractionListener.onOpenLikeOwners(post)
             }
 
             menu.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE

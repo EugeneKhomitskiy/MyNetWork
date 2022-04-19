@@ -1,24 +1,25 @@
 package com.example.mynetwork.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.mynetwork.api.UserApiService
+import com.example.mynetwork.dto.Post
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.model.ModelState
+import com.example.mynetwork.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
+    private val userRepository: UserRepository,
     private val userApiService: UserApiService
 ) : ViewModel() {
-    private val _data = MutableLiveData<List<User>>()
-    val data: LiveData<List<User>>
-        get() = _data
+
+    val data: LiveData<List<User>> = userRepository.data
+        .asLiveData(Dispatchers.Default)
 
     private val _dataState = MutableLiveData<ModelState>()
     val dataState: LiveData<ModelState>
@@ -28,14 +29,17 @@ class UserViewModel @Inject constructor(
     val user: LiveData<User>
         get() = _user
 
-    fun getUsers() = viewModelScope.launch {
+    private val _usersIds = MutableLiveData<Set<Long>>()
+    val userIds: LiveData<Set<Long>>
+        get() = _usersIds
+
+    init {
+        getUsers()
+    }
+
+    private fun getUsers() = viewModelScope.launch {
         try {
-            val response = userApiService.getUsers()
-            if (response.isSuccessful) {
-                _data.value = response.body()
-            }
-        } catch (e: IOException) {
-            _dataState.postValue(ModelState(error = true))
+            userRepository.getAll()
         } catch (e: Exception) {
             throw UnknownError()
         }
@@ -50,7 +54,15 @@ class UserViewModel @Inject constructor(
         } catch (e: IOException) {
             _dataState.postValue(ModelState(error = true))
         } catch (e: Exception) {
-            e.printStackTrace()
+            throw UnknownError()
         }
+    }
+
+    fun getMentionsIds(post: Post) = viewModelScope.launch {
+        _usersIds.value = post.mentionIds
+    }
+
+    fun getLikeOwnersIds(post: Post) = viewModelScope.launch {
+        _usersIds.value = post.likeOwnerIds
     }
 }

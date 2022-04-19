@@ -8,7 +8,11 @@
         android:id="@+id/navigation_posts"
         android:name="com.example.mynetwork.ui.PostsFragment"
         android:label="@string/title_posts"
-        tools:layout="@layout/fragment_posts"/>
+        tools:layout="@layout/fragment_posts">
+        <action
+            android:id="@+id/action_navigation_posts_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_events"
         android:name="com.example.mynetwork.ui.EventsFragment"
@@ -65,10 +69,19 @@
         android:id="@+id/wallFragment"
         android:name="com.example.mynetwork.ui.WallFragment"
         android:label="fragment_wall"
-        tools:layout="@layout/fragment_wall" />
+        tools:layout="@layout/fragment_wall" >
+        <action
+            android:id="@+id/action_wallFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newEventFragment"
         android:name="com.example.mynetwork.ui.NewEventFragment"
         android:label="fragment_new_event"
         tools:layout="@layout/fragment_new_event" />
+    <dialog
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.example.mynetwork.ui.BottomSheetFragment"
+        android:label="fragment_bottom_sheet"
+        tools:layout="@layout/fragment_bottom_sheet" />
 </navigation>
