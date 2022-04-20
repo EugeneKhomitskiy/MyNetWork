@@ -63,8 +63,7 @@ class AppActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_posts, R.id.navigation_events,
-                R.id.navigation_users, R.id.navigation_profile
+                R.id.navigation_posts, R.id.navigation_events, R.id.navigation_users
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -131,6 +130,9 @@ class AppActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
+            }
             R.id.signin -> {
                 findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.signInFragment)
                 true

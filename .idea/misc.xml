@@ -15,6 +15,8 @@
         <entry key="app/src/main/res/drawable-xhdpi/ic_loading_100dp.xml" value="0.1415" />
         <entry key="app/src/main/res/drawable-xxxhdpi/ic_error_100dp.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/aaaaaaaaaaa.xml" value="0.226" />
+        <entry key="app/src/main/res/drawable/bottom_set_background.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/ic_add_user_icon.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/ic_add_user_icon5050.xml" value="0.1615" />
         <entry key="app/src/main/res/drawable/ic_avatar_default.xml" value="0.1" />
