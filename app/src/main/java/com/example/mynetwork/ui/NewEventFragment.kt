@@ -1,10 +1,6 @@
 package com.example.mynetwork.ui
 
 import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
-import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.FragmentNewEventBinding
 import com.example.mynetwork.extension.formatToInstant
+import com.example.mynetwork.extension.pickDate
+import com.example.mynetwork.extension.pickTime
 import com.example.mynetwork.util.AndroidUtils
 import com.example.mynetwork.viewmodel.EventViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -25,14 +23,10 @@ import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.text.SimpleDateFormat
-import java.util.*
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class NewEventFragment : Fragment() {
-
-    private val calendar = Calendar.getInstance()
 
     private var fragmentBinding: FragmentNewEventBinding? = null
 
@@ -83,44 +77,12 @@ class NewEventFragment : Fragment() {
             false
         )
 
-        val datePicker = OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            calendar[Calendar.YEAR] = year
-            calendar[Calendar.MONTH] = monthOfYear
-            calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
-            binding.editDate.setText(
-                SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
-                    .format(calendar.time)
-            )
-        }
-
-        val timePicker = OnTimeSetListener { _, hourOfDay, minute ->
-            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-            calendar.set(Calendar.MINUTE, minute)
-            binding.editTime.setText(
-                SimpleDateFormat("HH-mm", Locale.ROOT)
-                    .format(calendar.time)
-            )
-        }
-
         binding.date.setOnClickListener {
-            context?.let {
-                DatePickerDialog(
-                    it, datePicker,
-                    calendar[Calendar.YEAR],
-                    calendar[Calendar.MONTH],
-                    calendar[Calendar.DAY_OF_MONTH]
-                )
-                    .show()
-            }
+            context?.let { it1 -> it.pickDate(binding.editDate, it1) }
         }
 
         binding.time.setOnClickListener {
-            TimePickerDialog(
-                context, timePicker,
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE), true
-            )
-                .show()
+            context?.let { it1 -> it.pickTime(binding.editTime, it1) }
         }
 
         fragmentBinding = binding
