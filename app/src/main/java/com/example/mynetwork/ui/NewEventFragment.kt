@@ -1,18 +1,18 @@
 package com.example.mynetwork.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.FragmentNewEventBinding
+import com.example.mynetwork.extension.formatToDate
 import com.example.mynetwork.extension.formatToInstant
 import com.example.mynetwork.extension.pickDate
 import com.example.mynetwork.extension.pickTime
@@ -66,7 +66,7 @@ class NewEventFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,6 +77,16 @@ class NewEventFragment : Fragment() {
             false
         )
 
+        fragmentBinding = binding
+
+        val dateTime = arguments?.getString("dateTime")?.let { formatToDate(it) }
+        val date = dateTime?.substring(0, 10)
+        val time = dateTime?.substring(11)
+
+        binding.edit.setText(arguments?.getString("content"))
+        binding.editDate.setText(date)
+        binding.editTime.setText(time)
+
         binding.date.setOnClickListener {
             context?.let { it1 -> it.pickDate(binding.editDate, it1) }
         }
@@ -85,7 +95,16 @@ class NewEventFragment : Fragment() {
             context?.let { it1 -> it.pickTime(binding.editTime, it1) }
         }
 
-        fragmentBinding = binding
+        binding.speaker.setOnClickListener {
+            val bundle = Bundle().apply { putString("open", "speaker") }
+            findNavController().navigate(R.id.navigation_users, bundle)
+        }
+
+        eventViewModel.edited.observe(viewLifecycleOwner) {
+            binding.speaker.apply {
+                text = "$text ${eventViewModel.edited.value?.speakerIds?.count().toString()}"
+            }
+        }
 
         binding.removePhoto.setOnClickListener {
             eventViewModel.changePhoto(null)

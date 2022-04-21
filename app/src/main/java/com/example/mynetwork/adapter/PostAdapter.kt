@@ -1,6 +1,5 @@
 package com.example.mynetwork.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,6 @@ class PostViewHolder(
     private val onPostInteractionListener: OnPostInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    @SuppressLint("NewApi")
     fun bind(post: Post) {
 
         with(binding) {

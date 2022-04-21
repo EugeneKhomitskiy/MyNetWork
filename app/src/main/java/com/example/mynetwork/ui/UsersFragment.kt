@@ -14,6 +14,7 @@ import com.example.mynetwork.adapter.OnUserInteractionListener
 import com.example.mynetwork.adapter.UserAdapter
 import com.example.mynetwork.databinding.FragmentUsersBinding
 import com.example.mynetwork.dto.User
+import com.example.mynetwork.viewmodel.EventViewModel
 import com.example.mynetwork.viewmodel.PostViewModel
 import com.example.mynetwork.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,7 @@ class UsersFragment : Fragment() {
 
     private val userViewModel: UserViewModel by viewModels()
     private val postViewModel: PostViewModel by activityViewModels()
+    private val eventViewModel: EventViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,20 +43,27 @@ class UsersFragment : Fragment() {
 
         val adapter = UserAdapter(object : OnUserInteractionListener {
             override fun openProfile(user: User) {
-                if (open == "mention") {
-                    postViewModel.changeMentionIds(user.id)
-                    postViewModel.save()
-                    findNavController().navigateUp()
-                } else {
-                    userViewModel.getUserById(user.id)
-                    val bundle = Bundle().apply {
-                        putLong("id", user.id)
-                        putString("avatar", user.avatar)
-                        putString("name", user.name)
+                when (open) {
+                    "mention" -> {
+                        postViewModel.changeMentionIds(user.id)
+                        postViewModel.save()
+                        findNavController().navigateUp()
                     }
-                    findNavController().apply {
-                        this.popBackStack(R.id.navigation_users, true)
-                        this.navigate(R.id.navigation_profile, bundle)
+                    "speaker" -> {
+                        eventViewModel.setSpeaker(user.id)
+                        findNavController().navigateUp()
+                    }
+                    else -> {
+                        userViewModel.getUserById(user.id)
+                        val bundle = Bundle().apply {
+                            putLong("id", user.id)
+                            putString("avatar", user.avatar)
+                            putString("name", user.name)
+                        }
+                        findNavController().apply {
+                            this.popBackStack(R.id.navigation_users, true)
+                            this.navigate(R.id.navigation_profile, bundle)
+                        }
                     }
                 }
             }

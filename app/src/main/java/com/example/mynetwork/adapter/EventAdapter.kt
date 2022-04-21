@@ -17,6 +17,12 @@ import com.example.mynetwork.extension.formatToDate
 interface OnEventInteractionListener {
     fun openEvent(event: Event)
     fun onRemove(event: Event)
+    fun onEdit(event: Event)
+    fun onLike(event: Event)
+    fun onParticipate(event: Event)
+    fun onOpenSpeakers(event: Event)
+    fun onOpenLikeOwners(event: Event)
+    fun onOpenParticipants(event: Event)
 }
 
 class EventAdapter(private val onEventInteractionListener: OnEventInteractionListener) :
@@ -43,12 +49,35 @@ class EventViewHolder(
             published.text = formatToDate(event.published)
             dateTime.text = formatToDate(event.datetime)
             content.text = event.content
+            like.isChecked = event.likedByMe
+            participate.isChecked = event.participatedByMe
+            likers.text = event.likeOwnerIds.count().toString()
 
             Glide.with(avatar)
                 .load("${event.authorAvatar}")
                 .transform(CircleCrop())
                 .placeholder(R.drawable.ic_avatar_default)
                 .into(avatar)
+
+            binding.like.setOnClickListener {
+                onEventInteractionListener.onLike(event)
+            }
+
+            binding.speakers.setOnClickListener {
+                onEventInteractionListener.onOpenSpeakers(event)
+            }
+
+            binding.likers.setOnClickListener {
+                onEventInteractionListener.onOpenLikeOwners(event)
+            }
+
+            binding.participants.setOnClickListener {
+                onEventInteractionListener.onOpenParticipants(event)
+            }
+
+            binding.participate.setOnClickListener {
+                onEventInteractionListener.onParticipate(event)
+            }
 
             menu.visibility = if (event.ownedByMe) View.VISIBLE else View.INVISIBLE
             menu.setOnClickListener {
@@ -62,6 +91,7 @@ class EventViewHolder(
                                 true
                             }
                             R.id.edit -> {
+                                onEventInteractionListener.onEdit(event)
                                 true
                             }
                             else -> false

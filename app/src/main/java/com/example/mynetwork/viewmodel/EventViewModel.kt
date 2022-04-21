@@ -33,7 +33,8 @@ private val empty = Event(
     content = "",
     published = "2021-08-17T16:46:58.887547Z",
     datetime = "2021-08-17T16:46:58.887547Z",
-    type = EventType.ONLINE
+    type = EventType.ONLINE,
+    speakerIds = emptySet()
 )
 
 private val noPhoto = PhotoModel()
@@ -61,7 +62,7 @@ class EventViewModel @Inject constructor(
             }
         }
 
-    private val edited = MutableLiveData(empty)
+    val edited = MutableLiveData(empty)
 
     private val _dataState = MutableLiveData<ModelState>()
     val dataState: LiveData<ModelState>
@@ -98,13 +99,19 @@ class EventViewModel @Inject constructor(
     fun change(content: String, date: String) {
         edited.value?.let {
             val text = content.trim()
-            val dateText = date.trim()
             if (edited.value?.content != text) {
                 edited.value = edited.value?.copy(content = text)
             }
             if (edited.value?.datetime != date) {
-                edited.value = edited.value?.copy(datetime = dateText)
+                edited.value = edited.value?.copy(datetime = date)
             }
+        }
+    }
+
+    fun setSpeaker(id: Long) {
+        if (edited.value?.speakerIds?.contains(id) == false) {
+            edited.value = edited.value?.speakerIds?.plus(id)
+                ?.let { edited.value?.copy(speakerIds = it) }
         }
     }
 
@@ -123,5 +130,41 @@ class EventViewModel @Inject constructor(
 
     fun edit(event: Event) {
         edited.value = event
+    }
+
+    fun likeById(id: Long) = viewModelScope.launch {
+        try {
+            eventRepository.likeById(id)
+        } catch (e: Exception) {
+            _dataState.value =
+                ModelState(error = true)
+        }
+    }
+
+    fun dislikeById(id: Long) = viewModelScope.launch {
+        try {
+            eventRepository.dislikeById(id)
+        } catch (e: Exception) {
+            _dataState.value =
+                ModelState(error = true)
+        }
+    }
+
+    fun participate(id: Long) = viewModelScope.launch {
+        try {
+            eventRepository.participate(id)
+        } catch (e: Exception) {
+            _dataState.value =
+                ModelState(error = true)
+        }
+    }
+
+    fun notParticipate(id: Long) = viewModelScope.launch {
+        try {
+            eventRepository.notParticipate(id)
+        } catch (e: Exception) {
+            _dataState.value =
+                ModelState(error = true)
+        }
     }
 }

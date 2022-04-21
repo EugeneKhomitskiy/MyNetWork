@@ -11,7 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
-        return 3
+        return 2
     }
 
     override fun createFragment(position: Int): Fragment {

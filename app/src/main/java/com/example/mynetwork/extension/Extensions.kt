@@ -26,7 +26,7 @@ fun formatToDate(value: String): String {
 
 @SuppressLint("NewApi")
 fun formatToInstant(value: String): String {
-    val date = SimpleDateFormat("yyyy-MM-dd HH-mm", Locale.getDefault()).parse(value)
+    val date = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(value)
     val formatter = DateTimeFormatter.ISO_INSTANT
 
     return formatter.format(date?.toInstant())
@@ -56,7 +56,7 @@ fun View.pickTime(editText: EditText, context: Context) {
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
         editText.setText(
-            SimpleDateFormat("HH-mm", Locale.ROOT)
+            SimpleDateFormat("HH:mm", Locale.ROOT)
                 .format(calendar.time)
         )
     }

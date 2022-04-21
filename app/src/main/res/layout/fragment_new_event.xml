@@ -55,14 +55,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|start"
-                android:text="@string/date" />
+                android:text="@string/pick_date" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|start"
-                android:text="@string/time" />
+                android:text="@string/pick_time" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/speaker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|start"
+                android:text="@string/pick_speaker" />
 
             <FrameLayout
                 android:id="@+id/photoContainer"

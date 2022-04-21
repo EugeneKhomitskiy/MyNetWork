@@ -162,6 +162,7 @@
             app:layout_constraintTop_toBottomOf="@id/likers"/>
 
         <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:dividerColor="@color/grey"
@@ -197,6 +198,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/date"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            android:layout_marginBottom="@dimen/common_spacing"
             app:layout_constraintTop_toBottomOf="@id/content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

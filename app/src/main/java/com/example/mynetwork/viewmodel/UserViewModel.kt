@@ -2,6 +2,7 @@ package com.example.mynetwork.viewmodel
 
 import androidx.lifecycle.*
 import com.example.mynetwork.api.UserApiService
+import com.example.mynetwork.dto.Event
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.model.ModelState
@@ -58,11 +59,7 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun getMentionsIds(post: Post) = viewModelScope.launch {
-        _usersIds.value = post.mentionIds
-    }
-
-    fun getLikeOwnersIds(post: Post) = viewModelScope.launch {
-        _usersIds.value = post.likeOwnerIds
+    fun getUsersIds(set: Set<Long>) = viewModelScope.launch {
+        _usersIds.value = set
     }
 }

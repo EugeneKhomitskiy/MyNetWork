@@ -83,12 +83,12 @@ class WallFragment : Fragment() {
             }
 
             override fun onOpenMentions(post: Post) {
-                userViewModel.getMentionsIds(post)
+                userViewModel.getUsersIds(post.mentionIds)
                 findNavController().navigate(R.id.bottomSheetFragment)
             }
 
             override fun onOpenLikeOwners(post: Post) {
-                userViewModel.getLikeOwnersIds(post)
+                userViewModel.getUsersIds(post.likeOwnerIds)
                 findNavController().navigate(R.id.bottomSheetFragment)
             }
         })

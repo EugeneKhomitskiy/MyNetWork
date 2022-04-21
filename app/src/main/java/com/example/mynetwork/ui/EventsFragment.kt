@@ -4,15 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.example.mynetwork.R
 import com.example.mynetwork.adapter.EventAdapter
 import com.example.mynetwork.adapter.OnEventInteractionListener
 import com.example.mynetwork.databinding.FragmentEventsBinding
 import com.example.mynetwork.dto.Event
+import com.example.mynetwork.viewmodel.AuthViewModel
 import com.example.mynetwork.viewmodel.EventViewModel
+import com.example.mynetwork.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -21,7 +27,10 @@ import kotlinx.coroutines.flow.collectLatest
 @AndroidEntryPoint
 class EventsFragment : Fragment() {
 
-    private val eventViewModel: EventViewModel by viewModels()
+    private val eventViewModel: EventViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +50,56 @@ class EventsFragment : Fragment() {
 
             override fun onRemove(event: Event) {
                 eventViewModel.removeById(event.id)
+            }
+
+            override fun onEdit(event: Event) {
+                eventViewModel.edit(event)
+                val bundle = Bundle().apply {
+                    putString("content", event.content)
+                    putString("dateTime", event.datetime)
+                }
+                findNavController().navigate(R.id.newEventFragment, bundle)
+            }
+
+            override fun onLike(event: Event) {
+                if (authViewModel.authenticated) {
+                    if (!event.likedByMe) eventViewModel.likeById(event.id)
+                    else eventViewModel.dislikeById(event.id)
+                } else {
+                    Toast.makeText(
+                        activity,
+                        R.string.error_auth,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onParticipate(event: Event) {
+                if (authViewModel.authenticated) {
+                    if (!event.participatedByMe) eventViewModel.participate(event.id)
+                    else eventViewModel.notParticipate(event.id)
+                } else {
+                    Toast.makeText(
+                        activity,
+                        R.string.error_auth,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onOpenSpeakers(event: Event) {
+                userViewModel.getUsersIds(event.speakerIds)
+                findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
+            }
+
+            override fun onOpenLikeOwners(event: Event) {
+                userViewModel.getUsersIds(event.likeOwnerIds)
+                findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
+            }
+
+            override fun onOpenParticipants(event: Event) {
+                userViewModel.getUsersIds(event.participantsIds)
+                findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
             }
         })
 

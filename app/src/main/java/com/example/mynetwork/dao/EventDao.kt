@@ -18,13 +18,14 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEvents(posts: List<EventEntity>)
 
-    @Query("UPDATE EventEntity SET content = :content WHERE id = :id")
-    suspend fun updateContent(id: Long, content: String)
+    @Query("UPDATE EventEntity SET content = :content, dateTime = :dateTime WHERE id = :id")
+    suspend fun updateContent(id: Long, content: String, dateTime: String)
 
     suspend fun saveEvent(eventEntity: EventEntity) =
         if (eventEntity.id == 0L) insertEvent(eventEntity) else updateContent(
             eventEntity.id,
-            eventEntity.content
+            eventEntity.content,
+            eventEntity.datetime
         )
 
     @Query("DELETE FROM EventEntity WHERE id = :id")
@@ -69,13 +70,4 @@ interface EventDao {
         """,
     )
     suspend fun notParticipate(id: Long)
-
-    @Query(
-        """
-           UPDATE EventEntity SET
-               `speakerIds` = `speakerIds` + 1
-           WHERE id = :id;
-        """,
-    )
-    suspend fun speakerById(id: Long)
 }

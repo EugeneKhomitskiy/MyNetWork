@@ -33,5 +33,9 @@
     <string name="speakers">Speakers</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="pick_date">Pick date</string>
+    <string name="pick_time">Pick time</string>
+    <string name="pick_speaker">Pick speaker</string>
     <string name="participate">Participate</string>
+    <string name="text">Text</string>
 </resources>

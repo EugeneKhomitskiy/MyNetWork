@@ -100,18 +100,66 @@ class EventRepositoryImpl @Inject constructor(
     }
 
     override suspend fun likeById(id: Long) {
-        TODO("Not yet implemented")
+        try {
+            eventDao.likeById(id)
+            val response = eventApiService.likeById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val data = response.body() ?: throw ApiError(response.message())
+            eventDao.insertEvent(EventEntity.fromDto(data))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
     }
 
     override suspend fun dislikeById(id: Long) {
-        TODO("Not yet implemented")
+        try {
+            eventDao.dislikeById(id)
+            val response = eventApiService.dislikeById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val data = response.body() ?: throw ApiError(response.message())
+            eventDao.insertEvent(EventEntity.fromDto(data))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
     }
 
     override suspend fun participate(id: Long) {
-        TODO("Not yet implemented")
+        try {
+            eventDao.participate(id)
+            val response = eventApiService.participate(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val data = response.body() ?: throw ApiError(response.message())
+            eventDao.insertEvent(EventEntity.fromDto(data))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
     }
 
     override suspend fun notParticipate(id: Long) {
-        TODO("Not yet implemented")
+        try {
+            eventDao.notParticipate(id)
+            val response = eventApiService.notParticipate(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val data = response.body() ?: throw ApiError(response.message())
+            eventDao.insertEvent(EventEntity.fromDto(data))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
     }
 }

@@ -34,5 +34,9 @@
     <string name="speakers">Спикеры</string>
     <string name="date">Дата</string>
     <string name="time">Время</string>
+    <string name="pick_date">Выбрать дату</string>
+    <string name="pick_time">Выбрать время</string>
+    <string name="pick_speaker">Выбрать спикера</string>
     <string name="participate">Участвую</string>
+    <string name="text">Текст</string>
 </resources>
