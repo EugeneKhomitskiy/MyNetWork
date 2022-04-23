@@ -21,11 +21,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="matrix"
-            app:layout_constraintBottom_toTopOf="@id/lowerBarrier"
+            app:layout_constraintBottom_toTopOf="@id/audioPlay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/content"
             tools:ignore="ContentDescription" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/audioPlay"
+            style="@style/Theme.MyNetWork.MaterialButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/audio"
+            app:layout_constraintTop_toBottomOf="@id/imageAttachment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/videoPlay"
+            style="@style/Theme.MyNetWork.MaterialButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/video"
+            app:layout_constraintTop_toBottomOf="@id/audioPlay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lowerBarrier"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
             android:id="@+id/avatar"
@@ -98,7 +119,6 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_size"
             android:autoLink="web"
-            app:layout_constraintBottom_toTopOf="@id/lowerBarrier"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upperBarrier"
@@ -109,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="top"
-            app:layout_constraintTop_toBottomOf="@id/content" />
+            app:layout_constraintTop_toBottomOf="@id/videoPlay" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/likers"

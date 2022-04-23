@@ -38,4 +38,6 @@
     <string name="pick_speaker">Pick speaker</string>
     <string name="participate">Participate</string>
     <string name="text">Text</string>
+    <string name="audio">Audio</string>
+    <string name="video">Video</string>
 </resources>

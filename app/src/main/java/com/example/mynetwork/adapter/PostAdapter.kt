@@ -53,7 +53,12 @@ class PostViewHolder(
             like.isChecked = post.likedByMe
             likers.text = post.likeOwnerIds.count().toString()
             mentions.text = post.mentionIds.count().toString()
-            imageAttachment.visibility = if (post.attachment == null) View.GONE else View.VISIBLE
+            imageAttachment.visibility =
+                if (post.attachment != null && post.attachment.type == AttachmentType.IMAGE) View.VISIBLE else View.GONE
+            audioPlay.visibility =
+                if (post.attachment != null && post.attachment.type == AttachmentType.AUDIO) View.VISIBLE else View.GONE
+            videoPlay.visibility =
+                if (post.attachment != null && post.attachment.type == AttachmentType.VIDEO) View.VISIBLE else View.GONE
 
             Glide.with(avatar)
                 .load("${post.authorAvatar}")
@@ -62,18 +67,13 @@ class PostViewHolder(
                 .into(avatar)
 
             post.attachment?.apply {
-                when (AttachmentType.values().first()) {
-                    AttachmentType.IMAGE -> {
-                        Glide.with(imageAttachment)
-                            .load(this.url)
-                            .placeholder(R.drawable.ic_loading_100dp)
-                            .error(R.drawable.ic_error_100dp)
-                            .timeout(10_000)
-                            .into(imageAttachment)
-                    }
-                    AttachmentType.VIDEO -> TODO()
-                    AttachmentType.AUDIO -> TODO()
-                }
+                Glide.with(imageAttachment)
+                    .load(this.url)
+                    .placeholder(R.drawable.ic_loading_100dp)
+                    .error(R.drawable.ic_error_100dp)
+                    .timeout(10_000)
+                    .into(imageAttachment)
+
             }
 
             like.setOnClickListener {

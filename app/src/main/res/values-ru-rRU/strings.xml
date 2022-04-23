@@ -39,4 +39,6 @@
     <string name="pick_speaker">Выбрать спикера</string>
     <string name="participate">Участвую</string>
     <string name="text">Текст</string>
+    <string name="audio">Аудио</string>
+    <string name="video">Видео</string>
 </resources>
