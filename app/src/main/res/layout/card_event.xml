@@ -98,7 +98,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_size"
             android:autoLink="web"
-            app:layout_constraintBottom_toTopOf="@id/lowerBarrier"
+            app:layout_constraintBottom_toTopOf="@id/dateTime"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upperBarrier"
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="top"
-            app:layout_constraintTop_toBottomOf="@id/content" />
+            app:layout_constraintTop_toBottomOf="@id/dateTime" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/likers"
@@ -195,11 +195,11 @@
 
         <TextView
             android:id="@+id/dateTime"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date"
             android:textSize="@dimen/text_size"
-            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintBottom_toTopOf="@id/lowerBarrier"
             android:layout_marginBottom="@dimen/common_spacing"
             app:layout_constraintTop_toBottomOf="@id/content" />
 

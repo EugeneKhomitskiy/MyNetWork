@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mynetwork.api.UserApiService
-import com.example.mynetwork.dto.MediaUpload
+import com.example.mynetwork.dto.PhotoUpload
 import com.example.mynetwork.dto.Token
 import com.example.mynetwork.error.ApiError
 import com.example.mynetwork.model.ModelState
@@ -46,7 +46,7 @@ class SignUpViewModel @Inject constructor(
                     login.toRequestBody("text/plain".toMediaType()),
                     pass.toRequestBody("text/plain".toMediaType()),
                     photo.value?.uri?.toFile()?.let {
-                        val upload = MediaUpload(it)
+                        val upload = PhotoUpload(it)
                         MultipartBody.Part.createFormData(
                             "file", upload.file.name, upload.file.asRequestBody()
                         )

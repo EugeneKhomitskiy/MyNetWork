@@ -103,8 +103,15 @@ class PostsFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collectLatest { state ->
-                binding.swipeRefresh.isRefreshing =
-                    state.refresh is LoadState.Loading
+                binding.swipeRefresh.isRefreshing = state.refresh is LoadState.Loading
+            }
+        }
+
+        postViewModel.dataState.observe(viewLifecycleOwner) {
+            when {
+                it.error -> {
+                    Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

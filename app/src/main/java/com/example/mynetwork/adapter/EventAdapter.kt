@@ -1,5 +1,6 @@
 package com.example.mynetwork.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.CardEventBinding
 import com.example.mynetwork.dto.Event
+import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.extension.formatToDate
 
 interface OnEventInteractionListener {
@@ -29,7 +31,7 @@ class EventAdapter(private val onEventInteractionListener: OnEventInteractionLis
     PagingDataAdapter<Event, EventViewHolder>(EventDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val binding = CardEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return EventViewHolder(binding, onEventInteractionListener)
+        return EventViewHolder(parent.context, binding, onEventInteractionListener)
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
@@ -39,6 +41,7 @@ class EventAdapter(private val onEventInteractionListener: OnEventInteractionLis
 }
 
 class EventViewHolder(
+    private val context: Context,
     private val binding: CardEventBinding,
     private val onEventInteractionListener: OnEventInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -47,17 +50,35 @@ class EventViewHolder(
         with(binding) {
             author.text = event.author
             published.text = formatToDate(event.published)
-            dateTime.text = formatToDate(event.datetime)
+            dateTime.text =
+                "${context.getString(R.string.date)} ${formatToDate(event.datetime)}"
+            speakers.text =
+                "${context.getString(R.string.speakers)} ${event.speakerIds.count()}"
+            participants.text =
+                "${context.getString(R.string.participants)} ${event.participantsIds.count()}"
             content.text = event.content
             like.isChecked = event.likedByMe
             participate.isChecked = event.participatedByMe
             likers.text = event.likeOwnerIds.count().toString()
+            imageAttachment.visibility =
+                if (event.attachment != null && event.attachment.type == AttachmentType.IMAGE)
+                    View.VISIBLE else View.GONE
 
             Glide.with(avatar)
                 .load("${event.authorAvatar}")
                 .transform(CircleCrop())
                 .placeholder(R.drawable.ic_avatar_default)
                 .into(avatar)
+
+            event.attachment?.apply {
+                Glide.with(imageAttachment)
+                    .load(this.url)
+                    .placeholder(R.drawable.ic_loading_100dp)
+                    .error(R.drawable.ic_error_100dp)
+                    .timeout(10_000)
+                    .into(imageAttachment)
+
+            }
 
             binding.like.setOnClickListener {
                 onEventInteractionListener.onLike(event)

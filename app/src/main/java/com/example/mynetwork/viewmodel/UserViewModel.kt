@@ -2,8 +2,6 @@ package com.example.mynetwork.viewmodel
 
 import androidx.lifecycle.*
 import com.example.mynetwork.api.UserApiService
-import com.example.mynetwork.dto.Event
-import com.example.mynetwork.dto.Post
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.model.ModelState
 import com.example.mynetwork.repository.UserRepository
@@ -42,7 +40,7 @@ class UserViewModel @Inject constructor(
         try {
             userRepository.getAll()
         } catch (e: Exception) {
-            throw UnknownError()
+            _dataState.value = ModelState(error = true)
         }
     }
 

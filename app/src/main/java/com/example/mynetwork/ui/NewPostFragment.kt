@@ -1,7 +1,5 @@
 package com.example.mynetwork.ui
 
-import android.app.Activity
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -11,18 +9,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.FragmentNewPostBinding
-import com.example.mynetwork.dto.Post
+import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.util.AndroidUtils
 import com.example.mynetwork.viewmodel.PostViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class NewPostFragment : Fragment() {
+
+    var type: AttachmentType? = null
 
     private var fragmentBinding: FragmentNewPostBinding? = null
 
@@ -50,6 +50,7 @@ class NewPostFragment : Fragment() {
                     } else {
                         postViewModel.changeContent(it.edit.text.toString())
                         postViewModel.save()
+                        it.progress.visibility = View.VISIBLE
                         AndroidUtils.hideKeyboard(requireView())
                     }
                 }
@@ -74,39 +75,35 @@ class NewPostFragment : Fragment() {
 
         binding.edit.setText(arguments?.getString("content"))
 
-        binding.removePhoto.setOnClickListener {
-            postViewModel.changePhoto(null)
-        }
-
         val pickPhotoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                when (it.resultCode) {
-                    ImagePicker.RESULT_ERROR -> {
-                        Snackbar.make(
-                            binding.root,
-                            ImagePicker.getError(it.data),
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                    Activity.RESULT_OK -> {
-                        val uri: Uri? = it.data?.data
-                        postViewModel.changePhoto(uri)
-                    }
+                it.data?.data.let { uri ->
+                    val stream = uri?.let { context?.contentResolver?.openInputStream(it) }
+                    postViewModel.changeMedia(uri, stream, type)
+                }
+            }
+
+        val pickMediaLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+                uri?.let {
+                    val stream = context?.contentResolver?.openInputStream(it)
+                    postViewModel.changeMedia(it, stream, type)
                 }
             }
 
         binding.pickPhoto.setOnClickListener {
-            ImagePicker.with(this)
-                .crop()
-                .compress(2048)
-                .provider(ImageProvider.GALLERY)
-                .galleryMimeTypes(
-                    arrayOf(
-                        "image/png",
-                        "image/jpeg"
-                    )
-                )
-                .createIntent(pickPhotoLauncher::launch)
+            pickMediaLauncher.launch("image/*")
+            type = AttachmentType.IMAGE
+        }
+
+        binding.pickAudio.setOnClickListener {
+            pickMediaLauncher.launch("audio/*")
+            type = AttachmentType.AUDIO
+        }
+
+        binding.pickVideo.setOnClickListener {
+            pickMediaLauncher.launch("video/*")
+            type = AttachmentType.VIDEO
         }
 
         binding.takePhoto.setOnClickListener {
@@ -115,18 +112,20 @@ class NewPostFragment : Fragment() {
                 .compress(2048)
                 .provider(ImageProvider.CAMERA)
                 .createIntent(pickPhotoLauncher::launch)
+            type = AttachmentType.IMAGE
         }
 
         binding.removePhoto.setOnClickListener {
-            postViewModel.changePhoto(null)
+            postViewModel.changeMedia(null, null, null)
         }
 
-        postViewModel.photo.observe(viewLifecycleOwner) {
+        postViewModel.media.observe(viewLifecycleOwner) {
             if (it.uri == null) {
-                binding.photoContainer.visibility = View.GONE
+                binding.mediaContainer.visibility = View.GONE
                 return@observe
             }
-            binding.photoContainer.visibility = View.VISIBLE
+            binding.info.text = postViewModel.media.value?.uri?.path
+            binding.mediaContainer.visibility = View.VISIBLE
             binding.photo.setImageURI(it.uri)
         }
 

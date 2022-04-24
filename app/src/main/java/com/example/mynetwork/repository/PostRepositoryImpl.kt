@@ -17,8 +17,9 @@ import com.example.mynetwork.error.NetworkError
 import com.example.mynetwork.mediator.PostRemoteMediator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 import java.lang.Exception
 import javax.inject.Inject
@@ -41,7 +42,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun savePost(post: Post) {
         try {
-            postDao.savePost(PostEntity.fromDto(post))
+            //postDao.savePost(PostEntity.fromDto(post))
             val response = postApiService.savePost(post)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
@@ -55,11 +56,11 @@ class PostRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveWithAttachment(post: Post, upload: MediaUpload) {
+    override suspend fun saveWithAttachment(post: Post, upload: MediaUpload, type: AttachmentType) {
         try {
             val media = upload(upload)
             val postWithAttachment =
-                post.copy(attachment = Attachment(media.url, AttachmentType.IMAGE))
+                post.copy(attachment = Attachment(media.url, type))
             savePost(postWithAttachment)
         } catch (e: AppError) {
             throw e
@@ -73,7 +74,10 @@ class PostRepositoryImpl @Inject constructor(
     override suspend fun upload(upload: MediaUpload): Media {
         try {
             val media = MultipartBody.Part.createFormData(
-                "file", upload.file.name, upload.file.asRequestBody()
+                "file", "name", upload.inputStream.readBytes()
+                    .toRequestBody(
+                        "*/*".toMediaType()
+                    )
             )
             val response = postApiService.upload(media)
             if (!response.isSuccessful) {
@@ -82,8 +86,6 @@ class PostRepositoryImpl @Inject constructor(
             return response.body() ?: throw ApiError(response.message())
         } catch (e: IOException) {
             throw NetworkError
-        } catch (e: Exception) {
-            throw UnknownError()
         }
     }
 

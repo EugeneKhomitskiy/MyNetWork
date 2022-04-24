@@ -1,8 +1,6 @@
 package com.example.mynetwork.viewmodel
 
 import android.net.Uri
-import android.util.Log
-import androidx.core.net.toFile
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -10,8 +8,9 @@ import androidx.paging.map
 import com.example.mynetwork.auth.AppAuth
 import com.example.mynetwork.dto.MediaUpload
 import com.example.mynetwork.dto.Post
+import com.example.mynetwork.enumeration.AttachmentType
+import com.example.mynetwork.model.MediaModel
 import com.example.mynetwork.model.ModelState
-import com.example.mynetwork.model.PhotoModel
 import com.example.mynetwork.repository.PostRepository
 import com.example.mynetwork.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +19,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import javax.inject.Inject
 
 private val empty = Post(
@@ -31,7 +31,7 @@ private val empty = Post(
     published = "2021-08-17T16:46:58.887547Z"
 )
 
-private val noPhoto = PhotoModel()
+private val noMedia = MediaModel()
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -66,28 +66,29 @@ class PostViewModel @Inject constructor(
     val postCreated: LiveData<Unit>
         get() = _postCreated
 
-    private val _photo = MutableLiveData(noPhoto)
-    val photo: LiveData<PhotoModel>
-        get() = _photo
+    private val _media = MutableLiveData(noMedia)
+    val media: LiveData<MediaModel>
+        get() = _media
 
     fun save() {
         edited.value?.let { post ->
+            _postCreated.value = Unit
             viewModelScope.launch {
+                _dataState.postValue(ModelState(loading = true))
                 try {
-                    when (_photo.value) {
-                        noPhoto -> postRepository.savePost(post)
-                        else -> _photo.value?.uri?.let { MediaUpload(it.toFile()) }
-                            ?.let { postRepository.saveWithAttachment(post, it) }
+                    when (_media.value) {
+                        noMedia -> postRepository.savePost(post)
+                        else -> _media.value?.inputStream?.let { MediaUpload(it) }
+                            ?.let { postRepository.saveWithAttachment(post, it, _media.value?.type!!) }
                     }
                     _dataState.value = ModelState()
-                    _postCreated.value = Unit
                 } catch (e: Exception) {
                     _dataState.value = ModelState(error = true)
                 }
             }
         }
         edited.value = empty
-        _photo.value = noPhoto
+        _media.value = noMedia
     }
 
     fun changeContent(content: String) {
@@ -99,8 +100,8 @@ class PostViewModel @Inject constructor(
         }
     }
 
-    fun changePhoto(uri: Uri?) {
-        _photo.value = PhotoModel(uri)
+    fun changeMedia(uri: Uri?, inputStream: InputStream?, type: AttachmentType?) {
+        _media.value = MediaModel(uri, inputStream, type)
     }
 
     fun removeById(id: Long) = viewModelScope.launch {

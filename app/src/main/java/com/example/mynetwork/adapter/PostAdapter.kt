@@ -54,11 +54,14 @@ class PostViewHolder(
             likers.text = post.likeOwnerIds.count().toString()
             mentions.text = post.mentionIds.count().toString()
             imageAttachment.visibility =
-                if (post.attachment != null && post.attachment.type == AttachmentType.IMAGE) View.VISIBLE else View.GONE
+                if (post.attachment != null && post.attachment.type == AttachmentType.IMAGE)
+                    View.VISIBLE else View.GONE
             audioPlay.visibility =
-                if (post.attachment != null && post.attachment.type == AttachmentType.AUDIO) View.VISIBLE else View.GONE
+                if (post.attachment != null && post.attachment.type == AttachmentType.AUDIO)
+                    View.VISIBLE else View.GONE
             videoPlay.visibility =
-                if (post.attachment != null && post.attachment.type == AttachmentType.VIDEO) View.VISIBLE else View.GONE
+                if (post.attachment != null && post.attachment.type == AttachmentType.VIDEO)
+                    View.VISIBLE else View.GONE
 
             Glide.with(avatar)
                 .load("${post.authorAvatar}")

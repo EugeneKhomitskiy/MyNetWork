@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.FragmentNewEventBinding
+import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.extension.formatToDate
 import com.example.mynetwork.extension.formatToInstant
 import com.example.mynetwork.extension.pickDate
@@ -27,6 +28,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class NewEventFragment : Fragment() {
+
+    var type: AttachmentType? = null
 
     private var fragmentBinding: FragmentNewEventBinding? = null
 
@@ -107,23 +110,14 @@ class NewEventFragment : Fragment() {
         }
 
         binding.removePhoto.setOnClickListener {
-            eventViewModel.changePhoto(null)
+            //eventViewModel.changePhoto(null)
         }
 
         val pickPhotoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                when (it.resultCode) {
-                    ImagePicker.RESULT_ERROR -> {
-                        Snackbar.make(
-                            binding.root,
-                            ImagePicker.getError(it.data),
-                            Snackbar.LENGTH_LONG
-                        ).show()
-                    }
-                    Activity.RESULT_OK -> {
-                        val uri: Uri? = it.data?.data
-                        eventViewModel.changePhoto(uri)
-                    }
+                it.data?.data.let { uri ->
+                    val stream = uri?.let { context?.contentResolver?.openInputStream(it) }
+                    eventViewModel.changeMedia(uri, stream, type)
                 }
             }
 
@@ -139,6 +133,7 @@ class NewEventFragment : Fragment() {
                     )
                 )
                 .createIntent(pickPhotoLauncher::launch)
+            type = AttachmentType.IMAGE
         }
 
         binding.takePhoto.setOnClickListener {
@@ -147,13 +142,14 @@ class NewEventFragment : Fragment() {
                 .compress(2048)
                 .provider(ImageProvider.CAMERA)
                 .createIntent(pickPhotoLauncher::launch)
+            type = AttachmentType.IMAGE
         }
 
         binding.removePhoto.setOnClickListener {
-            eventViewModel.changePhoto(null)
+            eventViewModel.changeMedia(null, null, null)
         }
 
-        eventViewModel.photo.observe(viewLifecycleOwner) {
+        eventViewModel.media.observe(viewLifecycleOwner) {
             if (it.uri == null) {
                 binding.photoContainer.visibility = View.GONE
                 return@observe

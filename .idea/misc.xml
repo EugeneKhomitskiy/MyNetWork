@@ -68,7 +68,7 @@
         <entry key="app/src/main/res/layout/card_user.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.33256880733944955" />
         <entry key="app/src/main/res/layout/fragment_events.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/fragment_new_event.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/fragment_new_event.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_new_post.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.21621621621621623" />
