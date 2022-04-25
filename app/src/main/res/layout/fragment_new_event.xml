@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_spacing"
                 android:hint="@string/date"
+                android:focusable="false"
                 android:inputType="textMultiLine"
                 android:minHeight="48dp"
                 tools:ignore="MissingConstraints,TextFields" />
@@ -46,23 +47,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_spacing"
                 android:hint="@string/time"
+                android:focusable="false"
                 android:inputType="textMultiLine"
                 android:minHeight="48dp"
                 tools:ignore="MissingConstraints" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|start"
-                android:text="@string/pick_date" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|start"
-                android:text="@string/pick_time" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/speaker"

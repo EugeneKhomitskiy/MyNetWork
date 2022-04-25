@@ -64,11 +64,14 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/card_event.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/card_job.xml" value="0.335" />
         <entry key="app/src/main/res/layout/card_post.xml" value="0.33" />
         <entry key="app/src/main/res/layout/card_user.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.33256880733944955" />
         <entry key="app/src/main/res/layout/fragment_events.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_jobs.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/fragment_new_event.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_new_job.xml" value="0.15702479338842976" />
         <entry key="app/src/main/res/layout/fragment_new_post.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.21621621621621623" />

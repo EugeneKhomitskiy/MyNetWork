@@ -1,5 +1,6 @@
 package com.example.mynetwork.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +47,7 @@ class EventViewHolder(
     private val onEventInteractionListener: OnEventInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    @SuppressLint("SetTextI18n")
     fun bind(event: Event) {
         with(binding) {
             author.text = event.author

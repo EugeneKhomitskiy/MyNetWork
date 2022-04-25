@@ -11,7 +11,8 @@ import com.example.mynetwork.entity.*
         PostRemoteKeyEntity::class,
         EventRemoteKeyEntity::class,
         EventEntity::class,
-        UserEntity::class],
+        UserEntity::class,
+        JobEntity::class],
     version = 1
 )
 @TypeConverters(Converters::class)
@@ -21,4 +22,5 @@ abstract class AppDb : RoomDatabase() {
     abstract fun postRemoteKeyDao(): PostRemoteKeyDao
     abstract fun eventRemoteKeyDao(): EventRemoteKeyDao
     abstract fun userDao(): UserDao
+    abstract fun jobDao(): JobDao
 }

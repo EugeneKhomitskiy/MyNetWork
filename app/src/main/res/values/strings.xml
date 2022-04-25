@@ -10,10 +10,10 @@
     <string name="sign_up">Sign Up</string>
     <string name="sign_out">Sign Out</string>
     <string name="in_out">Sign In/Sign Up</string>
-    <string name="login">Login</string>
-    <string name="password">Password</string>
-    <string name="repeat_password">Repeat password</string>
-    <string name="user_name">Name</string>
+    <string name="login">Login *</string>
+    <string name="password">Password *</string>
+    <string name="repeat_password">Repeat password *</string>
+    <string name="user_name">Name *</string>
     <string name="error_login">Invalid username/password</string>
     <string name="error_auth">You are not authorized</string>
     <string name="error_repeat_password">Password mismatch</string>
@@ -22,6 +22,7 @@
     <string name="title_job">Job</string>
     <string name="post_text">Post text</string>
     <string name="error_empty_content">Content can\'t be empty</string>
+    <string name="error_required_fields">Fill in all required fields</string>
     <string name="liked">Liked</string>
     <string name="mention">Mention</string>
     <string name="retry_loading">Retry</string>
@@ -40,4 +41,14 @@
     <string name="text">Text</string>
     <string name="audio">Audio</string>
     <string name="video">Video</string>
+    <string name="company_name">Company name *</string>
+    <string name="position">Position *</string>
+    <string name="my_position">Position:</string>
+    <string name="start">Start *</string>
+    <string name="finish">Finish</string>
+    <string name="company">Company:</string>
+    <string name="from">From</string>
+    <string name="to">to</string>
+    <string name="now">now</string>
+    <string name="empty_list">The list is empty</string>
 </resources>

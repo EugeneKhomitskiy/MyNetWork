@@ -1,8 +1,6 @@
 package com.example.mynetwork.ui
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -21,7 +19,6 @@ import com.example.mynetwork.util.AndroidUtils
 import com.example.mynetwork.viewmodel.EventViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -90,11 +87,11 @@ class NewEventFragment : Fragment() {
         binding.editDate.setText(date)
         binding.editTime.setText(time)
 
-        binding.date.setOnClickListener {
+        binding.editDate.setOnClickListener {
             context?.let { it1 -> it.pickDate(binding.editDate, it1) }
         }
 
-        binding.time.setOnClickListener {
+        binding.editTime.setOnClickListener {
             context?.let { it1 -> it.pickTime(binding.editTime, it1) }
         }
 
@@ -110,7 +107,7 @@ class NewEventFragment : Fragment() {
         }
 
         binding.removePhoto.setOnClickListener {
-            //eventViewModel.changePhoto(null)
+            eventViewModel.changeMedia(null, null, null)
         }
 
         val pickPhotoLauncher =

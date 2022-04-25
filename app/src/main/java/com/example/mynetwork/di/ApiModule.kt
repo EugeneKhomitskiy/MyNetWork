@@ -1,11 +1,8 @@
 package com.example.mynetwork.di
 
 import com.example.mynetwork.BuildConfig
-import com.example.mynetwork.api.EventApiService
+import com.example.mynetwork.api.*
 import com.example.mynetwork.auth.AppAuth
-import com.example.mynetwork.api.PostApiService
-import com.example.mynetwork.api.UserApiService
-import com.example.mynetwork.api.WallApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -29,7 +27,7 @@ class ApiModule {
     @Provides
     fun providesHttpLogging(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         if (BuildConfig.DEBUG) {
-            level = HttpLoggingInterceptor.Level.BASIC
+            level = HttpLoggingInterceptor.Level.BODY
         }
     }
 
@@ -74,4 +72,8 @@ class ApiModule {
     @Singleton
     @Provides
     fun providesEventApiService(retrofit: Retrofit): EventApiService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun providesJobApiService(retrofit: Retrofit): JobApiService = retrofit.create()
 }

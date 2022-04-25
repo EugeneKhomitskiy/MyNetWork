@@ -29,4 +29,6 @@ object DbModule {
     fun providesEventKeyDao(appDb: AppDb): EventRemoteKeyDao = appDb.eventRemoteKeyDao()
     @Provides
     fun providesUserDao(appDb: AppDb): UserDao = appDb.userDao()
+    @Provides
+    fun providesJobDao(appDb: AppDb): JobDao = appDb.jobDao()
 }

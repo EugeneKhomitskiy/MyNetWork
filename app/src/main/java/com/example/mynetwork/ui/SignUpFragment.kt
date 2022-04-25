@@ -41,13 +41,26 @@ class SignUpFragment : Fragment() {
         )
 
         binding.buttonSignUp.setOnClickListener {
-            if (binding.textFieldPassword.editText?.text.toString() == binding.textFieldRepeatPassword.editText?.text.toString()) {
-                viewModel.registerUser(
-                    binding.textFieldLogin.editText?.text.toString(),
-                    binding.textFieldPassword.editText?.text.toString(),
-                    binding.textFieldName.editText?.text.toString()
-                )
-            } else binding.textFieldRepeatPassword.error = getString(R.string.error_repeat_password)
+            binding.let {
+                if (it.name.text.isNullOrBlank() || it.login.text.isNullOrBlank() ||
+                    it.password.text.isNullOrBlank() || it.repeatPassword.text.isNullOrBlank()
+                ) {
+                    Toast.makeText(
+                        activity,
+                        R.string.error_required_fields,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    if (binding.textFieldPassword.editText?.text.toString() == binding.textFieldRepeatPassword.editText?.text.toString()) {
+                        viewModel.registerUser(
+                            binding.textFieldLogin.editText?.text.toString(),
+                            binding.textFieldPassword.editText?.text.toString(),
+                            binding.textFieldName.editText?.text.toString()
+                        )
+                    } else binding.textFieldRepeatPassword.error =
+                        getString(R.string.error_repeat_password)
+                }
+            }
         }
 
         val pickPhotoLauncher =
@@ -89,7 +102,8 @@ class SignUpFragment : Fragment() {
         viewModel.dataState.observe(viewLifecycleOwner) { state ->
             when {
                 state.error -> {
-                    Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

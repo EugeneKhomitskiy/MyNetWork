@@ -52,7 +52,7 @@ class PostRepositoryImpl @Inject constructor(
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {
-            e.printStackTrace()
+            throw UnknownError()
         }
     }
 
@@ -86,6 +86,8 @@ class PostRepositoryImpl @Inject constructor(
             return response.body() ?: throw ApiError(response.message())
         } catch (e: IOException) {
             throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
         }
     }
 

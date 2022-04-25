@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_newEventFragment"
             app:destination="@id/newEventFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_newJobFragment"
+            app:destination="@id/newJobFragment" />
     </fragment>
     <fragment
         android:id="@+id/newPostFragment"
@@ -88,4 +91,14 @@
         android:name="com.example.mynetwork.ui.BottomSheetFragment"
         android:label="fragment_bottom_sheet"
         tools:layout="@layout/fragment_bottom_sheet" />
+    <fragment
+        android:id="@+id/jobsFragment"
+        android:name="com.example.mynetwork.ui.JobsFragment"
+        android:label="fragment_jobs"
+        tools:layout="@layout/fragment_jobs" />
+    <fragment
+        android:id="@+id/newJobFragment"
+        android:name="com.example.mynetwork.ui.NewJobFragment"
+        android:label="fragment_new_job"
+        tools:layout="@layout/fragment_new_job" />
 </navigation>

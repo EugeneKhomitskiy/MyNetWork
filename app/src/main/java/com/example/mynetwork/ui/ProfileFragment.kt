@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -15,6 +16,7 @@ import com.example.mynetwork.adapter.ViewPagerAdapter
 import com.example.mynetwork.databinding.FragmentProfileBinding
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.viewmodel.AuthViewModel
+import com.example.mynetwork.viewmodel.JobViewModel
 import com.example.mynetwork.viewmodel.PostViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +24,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 private val TAB_TITLES = arrayOf(
     R.string.title_posts,
-    R.string.title_events,
     R.string.title_jobs
 )
 
@@ -32,6 +33,7 @@ class ProfileFragment : Fragment() {
 
     private val authViewModel: AuthViewModel by activityViewModels()
     private val postViewModel: PostViewModel by activityViewModels()
+    private val jobViewModel: JobViewModel by activityViewModels()
     private var isVisibleGroupFab = false
 
     override fun onCreateView(
@@ -94,6 +96,10 @@ class ProfileFragment : Fragment() {
 
         binding.fabAddEvent.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_profile_to_newEventFragment)
+        }
+
+        binding.fabAddJob.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_newJobFragment)
         }
 
         return binding.root

@@ -7,15 +7,13 @@ import android.content.Context
 import android.view.View
 import android.widget.EditText
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.ZoneId
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
 
 private val calendar = Calendar.getInstance()
 
-@SuppressLint("NewApi")
 fun formatToDate(value: String): String {
     val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
         .withLocale(Locale.ROOT)
@@ -24,7 +22,6 @@ fun formatToDate(value: String): String {
     return formatter.format(Instant.parse(value))
 }
 
-@SuppressLint("NewApi")
 fun formatToInstant(value: String): String {
     val date = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(value)
     val formatter = DateTimeFormatter.ISO_INSTANT
@@ -32,18 +29,18 @@ fun formatToInstant(value: String): String {
     return formatter.format(date?.toInstant())
 }
 
-fun View.pickDate(editText: EditText, context: Context) {
+fun View.pickDate(editText: EditText?, context: Context?) {
     val datePicker = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
         calendar[Calendar.YEAR] = year
         calendar[Calendar.MONTH] = monthOfYear
         calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
-        editText.setText(
+        editText?.setText(
             SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
                 .format(calendar.time)
         )
     }
     DatePickerDialog(
-        context, datePicker,
+        context!!, datePicker,
         calendar[Calendar.YEAR],
         calendar[Calendar.MONTH],
         calendar[Calendar.DAY_OF_MONTH]
@@ -66,4 +63,16 @@ fun View.pickTime(editText: EditText, context: Context) {
         calendar.get(Calendar.MINUTE), true
     )
         .show()
+}
+
+fun dateToEpochSec(str: String?): Long? {
+    return if (str.isNullOrBlank()) null else LocalDate.parse(str)
+        .atStartOfDay(ZoneId.of("Europe/Moscow")).toEpochSecond()
+}
+
+@SuppressLint("SimpleDateFormat")
+fun epochSecToDate(second: Long): String {
+    val date = Date(second * 1000)
+    val sdf = SimpleDateFormat("yyyy-MM-dd")
+    return sdf.format(date)
 }

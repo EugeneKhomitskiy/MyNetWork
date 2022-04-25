@@ -11,10 +11,10 @@
     <string name="sign_up">Регистрация</string>
     <string name="sign_out">Выйти</string>
     <string name="in_out">Вход/Регистрация</string>
-    <string name="login">Логин</string>
-    <string name="password">Пароль</string>
-    <string name="repeat_password">Повторите пароль</string>
-    <string name="user_name">Имя</string>
+    <string name="login">Логин *</string>
+    <string name="password">Пароль *</string>
+    <string name="repeat_password">Повторите пароль *</string>
+    <string name="user_name">Имя *</string>
     <string name="error_login">Неверный логин/пароль</string>
     <string name="error_auth">Вы не авторизованы</string>
     <string name="error_repeat_password">Пароли не совпадают</string>
@@ -23,6 +23,7 @@
     <string name="title_job">Место работы</string>
     <string name="post_text">Текст поста</string>
     <string name="error_empty_content">Контент не может быть пустым</string>
+    <string name="error_required_fields">Заполните все обязательные поля</string>
     <string name="liked">Понравилось</string>
     <string name="mention">Отметить</string>
     <string name="retry_loading">Повторить</string>
@@ -41,4 +42,14 @@
     <string name="text">Текст</string>
     <string name="audio">Аудио</string>
     <string name="video">Видео</string>
+    <string name="company_name">Название компании *</string>
+    <string name="position">Должность *</string>
+    <string name="my_position">Должность:</string>
+    <string name="start">Начало работы *</string>
+    <string name="finish">Окончание работы</string>
+    <string name="company">Компания:</string>
+    <string name="from">С</string>
+    <string name="to">по</string>
+    <string name="now">настоящее время</string>
+    <string name="empty_list">Список пуст</string>
 </resources>
