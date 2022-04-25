@@ -51,4 +51,9 @@
     <string name="to">to</string>
     <string name="now">now</string>
     <string name="empty_list">The list is empty</string>
+    <string name="empty_like_owners">No one liked the post</string>
+    <string name="empty_mentions">No marked users</string>
+    <string name="empty_participants">No participants</string>
+    <string name="empty_speakers">No speakers</string>
+    <string name="link">Link</string>
 </resources>

@@ -8,7 +8,7 @@ import com.example.mynetwork.enumeration.AttachmentType
 import kotlinx.coroutines.flow.Flow
 
 interface PostRepository {
-    val data : Flow<PagingData<Post>>
+    val data: Flow<PagingData<Post>>
 
     suspend fun savePost(post: Post)
     suspend fun saveWithAttachment(post: Post, upload: MediaUpload, type: AttachmentType)

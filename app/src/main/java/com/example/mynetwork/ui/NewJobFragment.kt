@@ -37,11 +37,13 @@ class NewJobFragment : Fragment() {
         )
 
         val name = arguments?.getString("name")
+        val link = arguments?.getString("link")
         val position = arguments?.getString("position")
         val start = arguments?.getLong("start")
         val finish = arguments?.getLong("finish")
 
         binding.name.setText(name)
+        binding.link.setText(link)
         binding.position.setText(position)
         binding.start.setText(start?.let { epochSecToDate(it) })
         binding.finish.setText(
@@ -61,6 +63,7 @@ class NewJobFragment : Fragment() {
                 } else {
                     jobViewModel.change(
                         it.name.text.toString(),
+                        it.link.text.toString(),
                         it.position.text.toString(),
                         dateToEpochSec(it.start.text.toString())!!,
                         dateToEpochSec(it.finish.text.toString())

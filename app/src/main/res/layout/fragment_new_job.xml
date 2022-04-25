@@ -22,12 +22,33 @@
             android:hint="@string/company_name"
             app:boxStrokeColor="@color/blue"
             app:hintTextColor="@color/blue"
-            app:layout_constraintBottom_toTopOf="@id/textFieldPassword"
+            app:layout_constraintBottom_toTopOf="@id/textFieldLink"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldLink"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginEnd="@dimen/common_spacing"
+            android:hint="@string/link"
+            app:boxStrokeColor="@color/blue"
+            app:hintTextColor="@color/blue"
+            app:layout_constraintBottom_toTopOf="@id/textFieldPosition"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

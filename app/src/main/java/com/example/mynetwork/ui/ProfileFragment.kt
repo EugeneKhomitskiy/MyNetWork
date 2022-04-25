@@ -7,15 +7,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mynetwork.R
 import com.example.mynetwork.adapter.ViewPagerAdapter
 import com.example.mynetwork.databinding.FragmentProfileBinding
+import com.example.mynetwork.dto.Event
+import com.example.mynetwork.dto.Job
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.viewmodel.AuthViewModel
+import com.example.mynetwork.viewmodel.EventViewModel
 import com.example.mynetwork.viewmodel.JobViewModel
 import com.example.mynetwork.viewmodel.PostViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -33,6 +35,7 @@ class ProfileFragment : Fragment() {
 
     private val authViewModel: AuthViewModel by activityViewModels()
     private val postViewModel: PostViewModel by activityViewModels()
+    private val eventViewModel: EventViewModel by activityViewModels()
     private val jobViewModel: JobViewModel by activityViewModels()
     private var isVisibleGroupFab = false
 
@@ -95,10 +98,12 @@ class ProfileFragment : Fragment() {
         }
 
         binding.fabAddEvent.setOnClickListener {
+            eventViewModel.edit(Event.empty)
             findNavController().navigate(R.id.action_navigation_profile_to_newEventFragment)
         }
 
         binding.fabAddJob.setOnClickListener {
+            jobViewModel.edit(Job.empty)
             findNavController().navigate(R.id.action_navigation_profile_to_newJobFragment)
         }
 

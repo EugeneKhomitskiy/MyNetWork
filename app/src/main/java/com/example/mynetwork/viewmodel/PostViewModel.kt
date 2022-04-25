@@ -72,8 +72,8 @@ class PostViewModel @Inject constructor(
 
     fun save() {
         edited.value?.let { post ->
-            _postCreated.value = Unit
             viewModelScope.launch {
+                _postCreated.value = Unit
                 _dataState.postValue(ModelState(loading = true))
                 try {
                     when (_media.value) {

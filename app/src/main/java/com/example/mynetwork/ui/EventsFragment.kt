@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -30,7 +29,6 @@ class EventsFragment : Fragment() {
     private val eventViewModel: EventViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -89,17 +87,29 @@ class EventsFragment : Fragment() {
 
             override fun onOpenSpeakers(event: Event) {
                 userViewModel.getUsersIds(event.speakerIds)
-                findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
+                if (event.speakerIds.isEmpty()) {
+                    Toast.makeText(context, R.string.empty_speakers, Toast.LENGTH_SHORT).show()
+                } else {
+                    findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
+                }
             }
 
             override fun onOpenLikeOwners(event: Event) {
                 userViewModel.getUsersIds(event.likeOwnerIds)
-                findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
+                if (event.likeOwnerIds.isEmpty()) {
+                    Toast.makeText(context, R.string.empty_like_owners, Toast.LENGTH_SHORT).show()
+                } else {
+                    findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
+                }
             }
 
             override fun onOpenParticipants(event: Event) {
                 userViewModel.getUsersIds(event.participantsIds)
-                findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
+                if (event.participantsIds.isEmpty()) {
+                    Toast.makeText(context, R.string.empty_participants, Toast.LENGTH_SHORT).show()
+                } else {
+                    findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
+                }
             }
         })
 

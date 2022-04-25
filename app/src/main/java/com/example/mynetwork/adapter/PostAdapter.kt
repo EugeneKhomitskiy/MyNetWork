@@ -83,6 +83,7 @@ class PostViewHolder(
                 onPostInteractionListener.onLike(post)
             }
 
+            mention.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE
             mention.setOnClickListener {
                 onPostInteractionListener.onMention(post)
             }

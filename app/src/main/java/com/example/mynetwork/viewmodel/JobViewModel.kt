@@ -32,8 +32,8 @@ class JobViewModel @Inject constructor(
     val data: Flow<List<Job>> = appAuth.authStateFlow
         .flatMapLatest { (myId, _) ->
             jobRepository.data.map {
-                it.map {
-                    it.copy(
+                it.map { job ->
+                    job.copy(
                         ownedByMe = userId.value == myId
                     )
                 }
@@ -42,7 +42,7 @@ class JobViewModel @Inject constructor(
 
     private val userId = MutableLiveData<Long>()
 
-    val edited = MutableLiveData(empty)
+    private val edited = MutableLiveData(empty)
 
     private val _dataState = MutableLiveData<ModelState>()
     val dataState: LiveData<ModelState>
@@ -82,12 +82,16 @@ class JobViewModel @Inject constructor(
         edited.value = empty
     }
 
-    fun change(name: String, position: String, start: Long, finish: Long?) {
+    fun change(name: String, link: String, position: String, start: Long, finish: Long?) {
         edited.value?.let {
             val nameText = name.trim()
             val positionText = position.trim()
+            val linkText = link.trim()
             if (edited.value?.name != nameText) {
                 edited.value = edited.value?.copy(name = nameText)
+            }
+            if (edited.value?.link != linkText) {
+                edited.value = edited.value?.copy(link = linkText)
             }
             if (edited.value?.position != positionText) {
                 edited.value = edited.value?.copy(position = positionText)

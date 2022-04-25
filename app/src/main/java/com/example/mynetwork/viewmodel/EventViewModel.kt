@@ -1,7 +1,6 @@
 package com.example.mynetwork.viewmodel
 
 import android.net.Uri
-import androidx.core.net.toFile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -80,6 +79,7 @@ class EventViewModel @Inject constructor(
 
     fun save() {
         edited.value?.let { event ->
+            _eventCreated.value = Unit
             viewModelScope.launch {
                 try {
                     when (_media.value) {
@@ -88,7 +88,6 @@ class EventViewModel @Inject constructor(
                             ?.let { eventRepository.saveWithAttachment(event, it) }
                     }
                     _dataState.value = ModelState()
-                    _eventCreated.value = Unit
                 } catch (e: Exception) {
                     _dataState.value = ModelState(error = true)
                 }

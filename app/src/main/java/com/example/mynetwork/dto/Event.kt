@@ -20,4 +20,18 @@ data class Event(
     val attachment: Attachment? = null,
     val link: String? = null,
     val ownedByMe: Boolean = false
-)
+) {
+    companion object {
+        val empty = Event(
+            id = 0,
+            authorId = 0,
+            author = "",
+            authorAvatar = "",
+            content = "",
+            published = "2021-08-17T16:46:58.887547Z",
+            datetime = "2021-08-17T16:46:58.887547Z",
+            type = EventType.ONLINE,
+            speakerIds = emptySet()
+        )
+    }
+}

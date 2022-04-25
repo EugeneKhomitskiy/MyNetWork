@@ -52,4 +52,9 @@
     <string name="to">по</string>
     <string name="now">настоящее время</string>
     <string name="empty_list">Список пуст</string>
+    <string name="empty_like_owners">Запись никому не понравилась</string>
+    <string name="empty_mentions">Нет отмеченных пользователей</string>
+    <string name="empty_participants">Нет участников</string>
+    <string name="empty_speakers">Нет спикеров</string>
+    <string name="link">Ссылка</string>
 </resources>

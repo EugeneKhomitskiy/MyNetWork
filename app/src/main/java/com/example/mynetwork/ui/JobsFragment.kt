@@ -44,6 +44,7 @@ class JobsFragment : Fragment() {
                 jobViewModel.edit(job)
                 val bundle = Bundle().apply {
                     putString("name", job.name)
+                    putString("link", job.link)
                     putString("position", job.position)
                     putLong("start", job.start)
                     job.finish?.let { putLong("finish", it) }

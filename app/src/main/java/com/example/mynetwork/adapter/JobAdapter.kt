@@ -42,6 +42,8 @@ class JobViewHolder(
     fun bind(job: Job) {
         with(binding) {
             name.text = "${context.getString(R.string.company)} ${job.name}"
+            link.text = job.link
+            link.visibility = if (job.link == null) View.GONE else View.VISIBLE
             position.text = "${context.getString(R.string.my_position)} ${job.position}"
             start.text = "${context.getString(R.string.from)} ${epochSecToDate(job.start).substring(0, 7)} "
             finish.text = if (job.finish == null) {

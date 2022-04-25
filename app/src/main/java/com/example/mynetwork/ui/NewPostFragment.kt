@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +17,6 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -50,7 +50,6 @@ class NewPostFragment : Fragment() {
                     } else {
                         postViewModel.changeContent(it.edit.text.toString())
                         postViewModel.save()
-                        it.progress.visibility = View.VISIBLE
                         AndroidUtils.hideKeyboard(requireView())
                     }
                 }

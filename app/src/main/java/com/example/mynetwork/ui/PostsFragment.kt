@@ -86,12 +86,20 @@ class PostsFragment : Fragment() {
 
             override fun onOpenMentions(post: Post) {
                 userViewModel.getUsersIds(post.mentionIds)
-                findNavController().navigate(R.id.action_navigation_posts_to_bottomSheetFragment)
+                if (post.mentionIds.isEmpty()) {
+                    Toast.makeText(context, R.string.empty_mentions, Toast.LENGTH_SHORT).show()
+                } else {
+                    findNavController().navigate(R.id.action_navigation_posts_to_bottomSheetFragment)
+                }
             }
 
             override fun onOpenLikeOwners(post: Post) {
                 userViewModel.getUsersIds(post.likeOwnerIds)
-                findNavController().navigate(R.id.action_navigation_posts_to_bottomSheetFragment)
+                if (post.likeOwnerIds.isEmpty()) {
+                    Toast.makeText(context, R.string.empty_like_owners, Toast.LENGTH_SHORT).show()
+                } else {
+                    findNavController().navigate(R.id.action_navigation_posts_to_bottomSheetFragment)
+                }
             }
         })
 
