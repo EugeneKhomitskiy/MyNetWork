@@ -18,7 +18,7 @@
     <string name="error_login">Неверный логин/пароль</string>
     <string name="error_auth">Вы не авторизованы</string>
     <string name="error_repeat_password">Пароли не совпадают</string>
-    <string name="error_loading">Ошибка сети. Проверьте подключение и повторите попытку</string>
+    <string name="error_loading">Ошибка загрузки. Повторите попытку</string>
     <string name="title_jobs">Опыт работы</string>
     <string name="title_job">Место работы</string>
     <string name="post_text">Текст поста</string>

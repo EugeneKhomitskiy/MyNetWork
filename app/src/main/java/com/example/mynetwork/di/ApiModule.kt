@@ -27,7 +27,7 @@ class ApiModule {
     @Provides
     fun providesHttpLogging(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         if (BuildConfig.DEBUG) {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = HttpLoggingInterceptor.Level.BASIC
         }
     }
 
@@ -47,6 +47,7 @@ class ApiModule {
             }
             chain.proceed(chain.request())
         }
+        .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 
     @Singleton

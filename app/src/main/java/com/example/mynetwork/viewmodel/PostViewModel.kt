@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.io.IOException
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -73,7 +74,6 @@ class PostViewModel @Inject constructor(
     fun save() {
         edited.value?.let { post ->
             viewModelScope.launch {
-                _postCreated.value = Unit
                 _dataState.postValue(ModelState(loading = true))
                 try {
                     when (_media.value) {
@@ -81,9 +81,12 @@ class PostViewModel @Inject constructor(
                         else -> _media.value?.inputStream?.let { MediaUpload(it) }
                             ?.let { postRepository.saveWithAttachment(post, it, _media.value?.type!!) }
                     }
-                    _dataState.value = ModelState()
+                    _dataState.postValue(ModelState())
+                    _postCreated.value = Unit
+                } catch (e: IOException) {
+                    _dataState.postValue(ModelState(error = true))
                 } catch (e: Exception) {
-                    _dataState.value = ModelState(error = true)
+                    throw UnknownError()
                 }
             }
         }

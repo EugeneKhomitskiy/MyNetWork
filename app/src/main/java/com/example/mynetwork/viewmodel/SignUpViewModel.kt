@@ -40,6 +40,7 @@ class SignUpViewModel @Inject constructor(
 
     fun registerUser(name: String, login: String, pass: String) {
         viewModelScope.launch {
+            _dataState.postValue(ModelState(loading = true))
             try {
                 val response = userApiService.registerUser(
                     name.toRequestBody("text/plain".toMediaType()),
@@ -54,6 +55,7 @@ class SignUpViewModel @Inject constructor(
                 )
                 val body = response.body() ?: throw ApiError(response.message())
                 data.value = Token(body.id, body.token)
+                _dataState.postValue(ModelState())
             } catch (e: IOException) {
                 _dataState.postValue(ModelState(error = true))
             } catch (e: Exception) {

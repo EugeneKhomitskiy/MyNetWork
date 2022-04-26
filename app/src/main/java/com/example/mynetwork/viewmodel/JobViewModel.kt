@@ -53,12 +53,12 @@ class JobViewModel @Inject constructor(
         get() = _jobCreated
 
     fun loadJobs(id: Long) = viewModelScope.launch {
+        _dataState.postValue(ModelState(loading = true))
         try {
-            _dataState.value = ModelState(loading = true)
             jobRepository.getByUserId(id)
             _dataState.value = ModelState()
         } catch (e: Exception) {
-            _dataState.value = ModelState(error = true)
+            _dataState.postValue(ModelState(error = true))
         }
     }
 
@@ -68,14 +68,14 @@ class JobViewModel @Inject constructor(
 
     fun save() {
         edited.value?.let { job ->
-            _jobCreated.value = Unit
             viewModelScope.launch {
-                _dataState.value = ModelState(loading = true)
+                _dataState.postValue(ModelState(loading = true))
                 try {
                     jobRepository.save(job)
-                    _dataState.value = ModelState()
+                    _dataState.postValue(ModelState())
+                    _jobCreated.value = Unit
                 } catch (e: Exception) {
-                    _dataState.value = ModelState(error = true)
+                    _dataState.postValue(ModelState(error = true))
                 }
             }
         }
@@ -110,11 +110,12 @@ class JobViewModel @Inject constructor(
     }
 
     fun removeById(id: Long) = viewModelScope.launch {
+        _dataState.postValue(ModelState(loading = true))
         try {
             jobRepository.removeById(id)
+            _dataState.postValue(ModelState(loading = true))
         } catch (e: Exception) {
-            _dataState.value =
-                ModelState(error = true)
+            _dataState.postValue(ModelState(error = true))
         }
     }
 }

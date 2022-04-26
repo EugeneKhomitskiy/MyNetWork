@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -56,15 +57,16 @@ class SignInFragment : Fragment() {
             findNavController().navigate(R.id.signUpFragment)
         }
 
-        viewModel.dataState.observe(viewLifecycleOwner) { state ->
+        viewModel.dataState.observe(viewLifecycleOwner) {
             when {
-                state.errorLogin -> {
+                it.errorLogin -> {
                     binding.textFieldPassword.error = getString(R.string.error_login)
                 }
-                state.error -> {
+                it.error -> {
                     Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT).show()
                 }
             }
+            binding.progress.isVisible = it.loading
         }
 
         return binding.root

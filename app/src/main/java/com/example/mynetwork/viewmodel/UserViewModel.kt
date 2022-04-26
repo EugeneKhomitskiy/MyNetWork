@@ -1,6 +1,7 @@
 package com.example.mynetwork.viewmodel
 
 import androidx.lifecycle.*
+import androidx.paging.LoadState
 import com.example.mynetwork.api.UserApiService
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.model.ModelState
@@ -37,19 +38,23 @@ class UserViewModel @Inject constructor(
     }
 
     private fun getUsers() = viewModelScope.launch {
+        _dataState.postValue(ModelState(loading = true))
         try {
             userRepository.getAll()
+            _dataState.postValue(ModelState())
         } catch (e: Exception) {
             _dataState.value = ModelState(error = true)
         }
     }
 
     fun getUserById(id: Long) = viewModelScope.launch {
+        _dataState.postValue(ModelState(loading = true))
         try {
             val response = userApiService.getUserById(id)
             if (response.isSuccessful) {
                 _user.value = response.body()
             }
+            _dataState.postValue(ModelState())
         } catch (e: IOException) {
             _dataState.postValue(ModelState(error = true))
         } catch (e: Exception) {

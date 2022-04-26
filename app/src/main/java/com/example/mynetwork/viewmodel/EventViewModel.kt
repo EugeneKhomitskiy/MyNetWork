@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.io.IOException
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -79,17 +80,20 @@ class EventViewModel @Inject constructor(
 
     fun save() {
         edited.value?.let { event ->
-            _eventCreated.value = Unit
             viewModelScope.launch {
+                _dataState.postValue(ModelState(loading = true))
                 try {
                     when (_media.value) {
                         noMedia -> eventRepository.save(event)
                         else -> _media.value?.inputStream?.let { MediaUpload(it) }
                             ?.let { eventRepository.saveWithAttachment(event, it) }
                     }
-                    _dataState.value = ModelState()
+                    _dataState.postValue(ModelState())
+                    _eventCreated.value = Unit
+                } catch (e: IOException) {
+                    _dataState.postValue(ModelState(error = true))
                 } catch (e: Exception) {
-                    _dataState.value = ModelState(error = true)
+                    throw UnknownError()
                 }
             }
         }

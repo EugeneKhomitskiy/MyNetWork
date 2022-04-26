@@ -126,6 +126,14 @@ class EventsFragment : Fragment() {
             }
         }
 
+        eventViewModel.dataState.observe(viewLifecycleOwner) {
+            when {
+                it.error -> {
+                    Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         binding.swipeRefresh.setOnRefreshListener(adapter::refresh)
 
         return binding.root
