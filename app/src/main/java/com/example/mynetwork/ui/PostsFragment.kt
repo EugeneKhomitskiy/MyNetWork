@@ -1,10 +1,17 @@
 package com.example.mynetwork.ui
 
+import android.content.Intent
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toFile
+import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +28,7 @@ import com.example.mynetwork.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import java.io.File
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -29,6 +37,8 @@ class PostsFragment : Fragment() {
     private val postViewModel: PostViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
+
+    private var mp: MediaPlayer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,6 +111,15 @@ class PostsFragment : Fragment() {
                     findNavController().navigate(R.id.action_navigation_posts_to_bottomSheetFragment)
                 }
             }
+
+            override fun onPlayAudio(post: Post) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onPlayVideo(post: Post) {
+                TODO("Not yet implemented")
+            }
+
         })
 
         binding.list.adapter = adapter
@@ -112,6 +131,7 @@ class PostsFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collectLatest { state ->
                 binding.swipeRefresh.isRefreshing = state.refresh is LoadState.Loading
+                binding.emptyText.isVisible = adapter.itemCount < 1
             }
         }
 

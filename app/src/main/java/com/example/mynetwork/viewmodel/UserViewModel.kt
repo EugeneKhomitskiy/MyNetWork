@@ -57,8 +57,6 @@ class UserViewModel @Inject constructor(
             _dataState.postValue(ModelState())
         } catch (e: IOException) {
             _dataState.postValue(ModelState(error = true))
-        } catch (e: Exception) {
-            throw UnknownError()
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.mynetwork.viewmodel
 import androidx.lifecycle.*
 import com.example.mynetwork.auth.AppAuth
 import com.example.mynetwork.dto.Job
+import com.example.mynetwork.model.JobModel
 import com.example.mynetwork.model.ModelState
 import com.example.mynetwork.repository.JobRepository
 import com.example.mynetwork.util.SingleLiveEvent
@@ -32,6 +33,7 @@ class JobViewModel @Inject constructor(
     val data: Flow<List<Job>> = appAuth.authStateFlow
         .flatMapLatest { (myId, _) ->
             jobRepository.data.map {
+                JobModel()
                 it.map { job ->
                     job.copy(
                         ownedByMe = userId.value == myId

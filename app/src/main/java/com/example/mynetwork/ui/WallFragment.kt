@@ -1,10 +1,12 @@
 package com.example.mynetwork.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -59,7 +61,9 @@ class WallFragment : Fragment() {
 
             override fun onLike(post: Post) {
                 if (authViewModel.authenticated) {
-                    if (!post.likedByMe) postViewModel.likeById(post.id) else postViewModel.dislikeById(post.id)
+                    if (!post.likedByMe) postViewModel.likeById(post.id) else postViewModel.dislikeById(
+                        post.id
+                    )
                 } else {
                     Toast.makeText(
                         activity,
@@ -92,6 +96,14 @@ class WallFragment : Fragment() {
                 userViewModel.getUsersIds(post.likeOwnerIds)
                 findNavController().navigate(R.id.bottomSheetFragment)
             }
+
+            override fun onPlayAudio(post: Post) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onPlayVideo(post: Post) {
+                TODO("Not yet implemented")
+            }
         })
 
         val id = parentFragment?.arguments?.getLong("id")
@@ -106,8 +118,8 @@ class WallFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collectLatest { state ->
-                binding.swipeRefresh.isRefreshing =
-                    state.refresh is LoadState.Loading
+                binding.swipeRefresh.isRefreshing = state.refresh is LoadState.Loading
+                binding.emptyText.isVisible = adapter.itemCount < 1
             }
         }
 

@@ -23,6 +23,8 @@ interface OnPostInteractionListener {
     fun onMention(post: Post)
     fun onOpenMentions(post: Post)
     fun onOpenLikeOwners(post: Post)
+    fun onPlayAudio(post: Post)
+    fun onPlayVideo(post: Post)
 }
 
 class PostAdapter(private val onPostInteractionListener: OnPostInteractionListener) :
@@ -94,6 +96,14 @@ class PostViewHolder(
 
             likers.setOnClickListener {
                 onPostInteractionListener.onOpenLikeOwners(post)
+            }
+
+            audioPlay.setOnClickListener {
+                onPostInteractionListener.onPlayAudio(post)
+            }
+
+            videoPlay.setOnClickListener {
+                onPostInteractionListener.onPlayVideo(post)
             }
 
             menu.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE

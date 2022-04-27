@@ -64,7 +64,10 @@ class JobsFragment : Fragment() {
                 jobViewModel.setId(id)
                 jobViewModel.loadJobs(id)
             }
-            jobViewModel.data.collectLatest(adapter::submitList)
+            jobViewModel.data.collectLatest {
+                adapter.submitList(it)
+                binding.emptyText.isVisible = it.isEmpty()
+            }
         }
 
         jobViewModel.dataState.observe(viewLifecycleOwner) {
