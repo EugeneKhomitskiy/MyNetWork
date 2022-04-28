@@ -35,10 +35,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_spacing"
-                android:hint="@string/post_text"
+                android:hint="@string/text"
                 android:inputType="textMultiLine"
                 android:minHeight="48dp"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/editDate"
@@ -49,7 +50,8 @@
                 android:focusable="false"
                 android:inputType="textMultiLine"
                 android:minHeight="48dp"
-                tools:ignore="MissingConstraints,TextFields" />
+                tools:ignore="MissingConstraints,TextFields"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/editTime"
@@ -60,14 +62,17 @@
                 android:focusable="false"
                 android:inputType="textMultiLine"
                 android:minHeight="48dp"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                android:importantForAutofill="no" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/speaker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|start"
-                android:text="@string/pick_speaker" />
+                android:layout_margin="@dimen/common_spacing"
+                android:text="@string/pick_speaker"
+                tools:ignore="TextContrastCheck" />
 
             <FrameLayout
                 android:id="@+id/photoContainer"
@@ -86,7 +91,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
-                    android:text="@string/menu_remove" />
+                    android:text="@string/menu_remove"
+                    tools:ignore="TextContrastCheck" />
             </FrameLayout>
         </LinearLayout>
     </ScrollView>
@@ -118,7 +124,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             app:icon="@drawable/ic_baseline_insert_photo_24"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/takePhoto"
@@ -127,6 +133,15 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             app:icon="@drawable/ic_baseline_photo_camera_24"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/geoLabel"
+            style="@style/Theme.MyNetWork.MaterialButton"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            app:icon="@drawable/ic_outline_location_on_24"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 

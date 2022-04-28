@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/drawable-mdpi/ic_error_100dp.xml" value="0.226" />
         <entry key="app/src/main/res/drawable-mdpi/ic_loading_100dp.xml" value="0.226" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_login_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_baseline_navigation_24.xml" value="0.1035" />
+        <entry key="app/src/main/res/drawable-v24/ic_baseline_place_24.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_like_selector_24.xml" value="0.1015" />
         <entry key="app/src/main/res/drawable-xhdpi/ic_error_100dp.xml" value="0.229" />
@@ -60,6 +62,7 @@
         <entry key="app/src/main/res/drawable/kmmmommo.xml" value="0.1595" />
         <entry key="app/src/main/res/drawable/rounded_dialog.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/uc_event_icon_selector.xml" value="0.1595" />
+        <entry key="app/src/main/res/layout-v26/fragment_map.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/aaaaaa.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/activity_app.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24322916666666666" />
@@ -71,9 +74,11 @@
         <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.33256880733944955" />
         <entry key="app/src/main/res/layout/fragment_events.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_jobs.xml" value="0.2578125" />
-        <entry key="app/src/main/res/layout/fragment_new_event.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_media.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/fragment_new_event.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_new_job.xml" value="0.15702479338842976" />
-        <entry key="app/src/main/res/layout/fragment_new_post.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_new_post.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.21621621621621623" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.24322916666666666" />

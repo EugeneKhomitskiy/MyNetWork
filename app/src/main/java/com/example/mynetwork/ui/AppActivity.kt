@@ -143,7 +143,7 @@ class AppActivity : AppCompatActivity() {
             }
             R.id.signout -> {
                 appAuth.removeAuth()
-                findNavController(R.id.nav_host_fragment_activity_main).navigateUp()
+                findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_posts)
                 true
             }
             else -> super.onOptionsItemSelected(item)

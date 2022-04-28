@@ -14,7 +14,7 @@ import java.util.*
 
 private val calendar = Calendar.getInstance()
 
-fun formatToDate(value: String): String {
+fun formatToDate(value: String?): String {
     val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
         .withLocale(Locale.ROOT)
         .withZone(ZoneId.systemDefault())
@@ -23,10 +23,12 @@ fun formatToDate(value: String): String {
 }
 
 fun formatToInstant(value: String): String {
-    val date = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(value)
-    val formatter = DateTimeFormatter.ISO_INSTANT
+    return if (value != " ") {
+        val date = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(value)
+        val formatter = DateTimeFormatter.ISO_INSTANT
 
-    return formatter.format(date?.toInstant())
+        formatter.format(date?.toInstant())
+    } else "2021-08-17T16:46:58.887547Z"
 }
 
 fun View.pickDate(editText: EditText?, context: Context?) {

@@ -40,7 +40,7 @@ class EventRepositoryImpl @Inject constructor(
 
     override suspend fun save(event: Event) {
         try {
-            eventDao.saveEvent(EventEntity.fromDto(event))
+            //eventDao.saveEvent(EventEntity.fromDto(event))
             val response = eventApiService.save(event)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())

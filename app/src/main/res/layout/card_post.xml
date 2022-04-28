@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="matrix"
+            android:layout_marginTop="@dimen/common_spacing"
             app:layout_constraintBottom_toTopOf="@id/audioPlay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -136,10 +137,10 @@
             style="@style/Theme.MyNetWork.MaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
             app:icon="@drawable/ic_outline_favorite_border_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lowerBarrier"/>
+            app:layout_constraintTop_toBottomOf="@id/lowerBarrier"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/geo"
@@ -149,14 +150,13 @@
             app:icon="@drawable/ic_outline_location_on_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lowerBarrier"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck,DuplicateSpeakableTextCheck" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mentions"
             style="@style/Theme.MyNetWork.MaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
             android:layout_marginStart="@dimen/common_spacing"
             app:icon="@drawable/ic_outline_people_alt_24"
             app:layout_constraintStart_toEndOf="@id/likers"

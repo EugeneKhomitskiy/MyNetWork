@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -36,6 +37,9 @@ class NewJobFragment : Fragment() {
             container,
             false
         )
+
+        (activity as AppCompatActivity).supportActionBar?.title =
+            context?.getString(R.string.title_job)
 
         val name = arguments?.getString("name")
         val link = arguments?.getString("link")

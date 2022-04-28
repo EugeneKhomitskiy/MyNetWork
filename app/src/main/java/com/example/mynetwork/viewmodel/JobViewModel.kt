@@ -115,7 +115,7 @@ class JobViewModel @Inject constructor(
         _dataState.postValue(ModelState(loading = true))
         try {
             jobRepository.removeById(id)
-            _dataState.postValue(ModelState(loading = true))
+            _dataState.postValue(ModelState())
         } catch (e: Exception) {
             _dataState.postValue(ModelState(error = true))
         }

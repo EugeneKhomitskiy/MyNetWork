@@ -9,6 +9,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.mynetwork.auth.AppAuth
+import com.example.mynetwork.dto.Coordinates
 import com.example.mynetwork.dto.Event
 import com.example.mynetwork.dto.MediaUpload
 import com.example.mynetwork.enumeration.AttachmentType
@@ -101,7 +102,7 @@ class EventViewModel @Inject constructor(
         _media.value = noMedia
     }
 
-    fun change(content: String, date: String) {
+    fun change(content: String, date: String, coords: Coordinates?) {
         edited.value?.let {
             val text = content.trim()
             if (edited.value?.content != text) {
@@ -109,6 +110,9 @@ class EventViewModel @Inject constructor(
             }
             if (edited.value?.datetime != date) {
                 edited.value = edited.value?.copy(datetime = date)
+            }
+            if (edited.value?.coords != coords) {
+                edited.value = edited.value?.copy(coords = coords)
             }
         }
     }

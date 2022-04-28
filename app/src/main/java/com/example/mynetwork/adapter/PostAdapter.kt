@@ -25,6 +25,7 @@ interface OnPostInteractionListener {
     fun onOpenLikeOwners(post: Post)
     fun onPlayAudio(post: Post)
     fun onPlayVideo(post: Post)
+    fun onOpenMap(post: Post)
 }
 
 class PostAdapter(private val onPostInteractionListener: OnPostInteractionListener) :
@@ -104,6 +105,11 @@ class PostViewHolder(
 
             videoPlay.setOnClickListener {
                 onPostInteractionListener.onPlayVideo(post)
+            }
+
+            geo.visibility = if (post.coords == null) View.GONE else View.VISIBLE
+            geo.setOnClickListener {
+                onPostInteractionListener.onOpenMap(post)
             }
 
             menu.visibility = if (post.ownedByMe) View.VISIBLE else View.INVISIBLE

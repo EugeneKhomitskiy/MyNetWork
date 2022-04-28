@@ -101,4 +101,9 @@
         android:name="com.example.mynetwork.ui.NewJobFragment"
         android:label="fragment_new_job"
         tools:layout="@layout/fragment_new_job" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.mynetwork.ui.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

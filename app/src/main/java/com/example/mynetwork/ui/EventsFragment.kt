@@ -56,6 +56,8 @@ class EventsFragment : Fragment() {
                 val bundle = Bundle().apply {
                     putString("content", event.content)
                     putString("dateTime", event.datetime)
+                    putDouble("lat", event.coords?.lat!!)
+                    putDouble("lng", event.coords.long)
                 }
                 findNavController().navigate(R.id.newEventFragment, bundle)
             }
@@ -111,6 +113,14 @@ class EventsFragment : Fragment() {
                 } else {
                     findNavController().navigate(R.id.action_navigation_events_to_bottomSheetFragment)
                 }
+            }
+
+            override fun onOpenMap(event: Event) {
+                val bundle = Bundle().apply {
+                    event.coords?.lat?.let { putDouble("lat", it) }
+                    event.coords?.long?.let { putDouble("lng", it) }
+                }
+                findNavController().navigate(R.id.mapFragment, bundle)
             }
         })
 

@@ -2,6 +2,8 @@ package com.example.mynetwork.application
 
 import com.example.mynetwork.auth.AppAuth
 import android.app.Application
+import com.example.mynetwork.BuildConfig
+import com.yandex.mapkit.MapKitFactory
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +20,7 @@ class MyNetWorkApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         setupAuth()
+        MapKitFactory.setApiKey(BuildConfig.MAPS_API_KEY)
     }
 
     private fun setupAuth() {

@@ -1,12 +1,12 @@
 package com.example.mynetwork.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -25,6 +25,7 @@ import com.example.mynetwork.viewmodel.WallViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import java.lang.Exception
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -55,7 +56,11 @@ class WallFragment : Fragment() {
 
             override fun onEdit(post: Post) {
                 postViewModel.edit(post)
-                val bundle = Bundle().apply { putString("content", post.content) }
+                val bundle = Bundle().apply {
+                    putString("content", post.content)
+                    putDouble("lat", post.coords?.lat!!)
+                    putDouble("lng", post.coords.long)
+                }
                 findNavController().navigate(R.id.newPostFragment, bundle)
             }
 
@@ -89,20 +94,50 @@ class WallFragment : Fragment() {
 
             override fun onOpenMentions(post: Post) {
                 userViewModel.getUsersIds(post.mentionIds)
-                findNavController().navigate(R.id.bottomSheetFragment)
+                if (post.mentionIds.isEmpty()) {
+                    Toast.makeText(context, R.string.empty_mentions, Toast.LENGTH_SHORT).show()
+                } else {
+                    findNavController().navigate(R.id.bottomSheetFragment)
+                }
             }
 
             override fun onOpenLikeOwners(post: Post) {
                 userViewModel.getUsersIds(post.likeOwnerIds)
-                findNavController().navigate(R.id.bottomSheetFragment)
+                if (post.likeOwnerIds.isEmpty()) {
+                    Toast.makeText(context, R.string.empty_like_owners, Toast.LENGTH_SHORT).show()
+                } else {
+                    findNavController().navigate(R.id.bottomSheetFragment)
+                }
             }
 
             override fun onPlayAudio(post: Post) {
-                TODO("Not yet implemented")
+                try {
+                    val uri = Uri.parse(post.attachment?.url)
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setDataAndType(uri, "audio/*")
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(context, R.string.error_play, Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onPlayVideo(post: Post) {
-                TODO("Not yet implemented")
+                try {
+                    val uri = Uri.parse(post.attachment?.url)
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setDataAndType(uri, "video/*")
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(context, R.string.error_play, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onOpenMap(post: Post) {
+                val bundle = Bundle().apply {
+                    post.coords?.lat?.let { putDouble("lat", it) }
+                    post.coords?.long?.let { putDouble("lng", it) }
+                }
+                findNavController().navigate(R.id.mapFragment, bundle)
             }
         })
 

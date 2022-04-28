@@ -24,6 +24,7 @@
     <string name="post_text">Текст поста</string>
     <string name="error_empty_content">Контент не может быть пустым</string>
     <string name="error_required_fields">Заполните все обязательные поля</string>
+    <string name="error_play">Отсутствует приложение для воспроизведения</string>
     <string name="liked">Понравилось</string>
     <string name="mention">Отметить</string>
     <string name="retry_loading">Повторить</string>
@@ -57,4 +58,8 @@
     <string name="empty_participants">Нет участников</string>
     <string name="empty_speakers">Нет спикеров</string>
     <string name="link">Ссылка</string>
+    <string name="permission_deny">У вас нет доступа к своему местоположению</string>
+    <string name="retry">Повторите попытку</string>
+    <string name="set_geo_label">Установить геометку</string>
+    <string name="map">Карта</string> />
 </resources>

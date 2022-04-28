@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.FragmentNewEventBinding
+import com.example.mynetwork.dto.Coordinates
+import com.example.mynetwork.dto.Event
 import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.extension.formatToDate
 import com.example.mynetwork.extension.formatToInstant
@@ -31,6 +34,9 @@ class NewEventFragment : Fragment() {
     private var fragmentBinding: FragmentNewEventBinding? = null
 
     private val eventViewModel: EventViewModel by activityViewModels()
+
+    private var latitude: Double? = null
+    private var longitude: Double? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +60,8 @@ class NewEventFragment : Fragment() {
                     } else {
                         eventViewModel.change(
                             it.edit.text.toString(),
-                            formatToInstant("${it.editDate.text} ${it.editTime.text}")
+                            formatToInstant("${it.editDate.text} ${it.editTime.text}"),
+                            Coordinates(latitude!!, longitude!!)
                         )
                         eventViewModel.save()
                         AndroidUtils.hideKeyboard(requireView())
@@ -77,15 +84,37 @@ class NewEventFragment : Fragment() {
             false
         )
 
+        (activity as AppCompatActivity).supportActionBar?.title =
+            context?.getString(R.string.title_event)
+
         fragmentBinding = binding
 
-        val dateTime = arguments?.getString("dateTime")?.let { formatToDate(it) }
-        val date = dateTime?.substring(0, 10)
-        val time = dateTime?.substring(11)
+        latitude = arguments?.getDouble("lat")
+        longitude = arguments?.getDouble("lng")
 
-        binding.edit.setText(arguments?.getString("content"))
-        binding.editDate.setText(date)
-        binding.editTime.setText(time)
+        val dateTime = arguments?.getString("dateTime")?.let { formatToDate(it) }
+            ?: formatToDate("${eventViewModel.edited.value?.datetime}")
+
+        val date = dateTime.substring(0, 10)
+        val time = dateTime.substring(11)
+
+        binding.edit.setText(
+            arguments?.getString("content") ?: eventViewModel.edited.value?.content
+        )
+        if (eventViewModel.edited.value != Event.empty) {
+            binding.editDate.setText(date)
+            binding.editTime.setText(time)
+        }
+
+        binding.geoLabel.setOnClickListener {
+            eventViewModel.change(
+                binding.edit.text.toString(),
+                formatToInstant("${binding.editDate.text} ${binding.editTime.text}"),
+                null
+            )
+            val bundle = Bundle().apply { putString("open", "newEvent") }
+            findNavController().navigate(R.id.mapFragment, bundle)
+        }
 
         binding.editDate.setOnClickListener {
             context?.let { it1 -> it.pickDate(binding.editDate, it1) }
@@ -156,7 +185,7 @@ class NewEventFragment : Fragment() {
         }
 
         eventViewModel.eventCreated.observe(viewLifecycleOwner) {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.navigation_events)
         }
 
         return binding.root

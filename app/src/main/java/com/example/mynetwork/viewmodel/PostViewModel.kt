@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.mynetwork.auth.AppAuth
+import com.example.mynetwork.dto.Coordinates
 import com.example.mynetwork.dto.MediaUpload
 import com.example.mynetwork.dto.Post
 import com.example.mynetwork.enumeration.AttachmentType
@@ -57,7 +58,7 @@ class PostViewModel @Inject constructor(
             }
         }
 
-    private val edited = MutableLiveData(empty)
+    val edited = MutableLiveData(empty)
 
     private val _dataState = MutableLiveData<ModelState>()
     val dataState: LiveData<ModelState>
@@ -94,11 +95,14 @@ class PostViewModel @Inject constructor(
         _media.value = noMedia
     }
 
-    fun changeContent(content: String) {
+    fun change(content: String, coords: Coordinates?) {
         edited.value?.let {
             val text = content.trim()
             if (edited.value?.content != text) {
                 edited.value = edited.value?.copy(content = text)
+            }
+            if (edited.value?.coords != coords) {
+                edited.value = edited.value?.copy(coords = coords)
             }
         }
     }

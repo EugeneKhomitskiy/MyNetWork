@@ -26,6 +26,7 @@ interface OnEventInteractionListener {
     fun onOpenSpeakers(event: Event)
     fun onOpenLikeOwners(event: Event)
     fun onOpenParticipants(event: Event)
+    fun onOpenMap(event: Event)
 }
 
 class EventAdapter(private val onEventInteractionListener: OnEventInteractionListener) :
@@ -100,6 +101,11 @@ class EventViewHolder(
 
             binding.participate.setOnClickListener {
                 onEventInteractionListener.onParticipate(event)
+            }
+
+            geo.visibility = if (event.coords == null) View.GONE else View.VISIBLE
+            geo.setOnClickListener {
+                onEventInteractionListener.onOpenMap(event)
             }
 
             menu.visibility = if (event.ownedByMe) View.VISIBLE else View.INVISIBLE

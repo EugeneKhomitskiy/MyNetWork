@@ -18,6 +18,7 @@
     <string name="error_auth">You are not authorized</string>
     <string name="error_repeat_password">Password mismatch</string>
     <string name="error_loading">Loading error. Try again</string>
+    <string name="error_play">No app to play</string>
     <string name="title_jobs">Jobs</string>
     <string name="title_job">Job</string>
     <string name="post_text">Post text</string>
@@ -56,4 +57,8 @@
     <string name="empty_participants">No participants</string>
     <string name="empty_speakers">No speakers</string>
     <string name="link">Link</string>
+    <string name="permission_deny">You do not have access to your location</string>
+    <string name="retry">Try again</string>
+    <string name="set_geo_label">Set geolabel</string>/>
+    <string name="map">Map</string>/>
 </resources>
