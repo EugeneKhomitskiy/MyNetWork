@@ -56,8 +56,8 @@ class EventsFragment : Fragment() {
                 val bundle = Bundle().apply {
                     putString("content", event.content)
                     putString("dateTime", event.datetime)
-                    putDouble("lat", event.coords?.lat!!)
-                    putDouble("lng", event.coords.long)
+                    event.coords?.lat?.let { putDouble("lat", it) }
+                    event.coords?.long?.let { putDouble("lng", it) }
                 }
                 findNavController().navigate(R.id.newEventFragment, bundle)
             }
@@ -121,6 +121,13 @@ class EventsFragment : Fragment() {
                     event.coords?.long?.let { putDouble("lng", it) }
                 }
                 findNavController().navigate(R.id.mapFragment, bundle)
+            }
+
+            override fun onOpenImageAttachment(event: Event) {
+                val bundle = Bundle().apply {
+                    putString("url", event.attachment?.url)
+                }
+                findNavController().navigate(R.id.imageFragment, bundle)
             }
         })
 

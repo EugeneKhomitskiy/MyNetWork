@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.CardEventBinding
 import com.example.mynetwork.dto.Event
+import com.example.mynetwork.dto.Post
 import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.extension.formatToDate
 
@@ -27,6 +28,7 @@ interface OnEventInteractionListener {
     fun onOpenLikeOwners(event: Event)
     fun onOpenParticipants(event: Event)
     fun onOpenMap(event: Event)
+    fun onOpenImageAttachment(event: Event)
 }
 
 class EventAdapter(private val onEventInteractionListener: OnEventInteractionListener) :
@@ -106,6 +108,10 @@ class EventViewHolder(
             geo.visibility = if (event.coords == null) View.GONE else View.VISIBLE
             geo.setOnClickListener {
                 onEventInteractionListener.onOpenMap(event)
+            }
+
+            imageAttachment.setOnClickListener {
+                onEventInteractionListener.onOpenImageAttachment(event)
             }
 
             menu.visibility = if (event.ownedByMe) View.VISIBLE else View.INVISIBLE

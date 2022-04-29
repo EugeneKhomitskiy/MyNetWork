@@ -61,7 +61,7 @@ class NewEventFragment : Fragment() {
                         eventViewModel.change(
                             it.edit.text.toString(),
                             formatToInstant("${it.editDate.text} ${it.editTime.text}"),
-                            Coordinates(latitude!!, longitude!!)
+                            Coordinates(latitude, longitude)
                         )
                         eventViewModel.save()
                         AndroidUtils.hideKeyboard(requireView())

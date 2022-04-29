@@ -106,4 +106,9 @@
         android:name="com.example.mynetwork.ui.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/imageFragment"
+        android:name="com.example.mynetwork.ui.ImageFragment"
+        android:label="fragment_image"
+        tools:layout="@layout/fragment_image" />
 </navigation>

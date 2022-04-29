@@ -55,7 +55,7 @@ class NewPostFragment : Fragment() {
                     } else {
                         postViewModel.change(
                             it.edit.text.toString(),
-                            Coordinates(latitude!!, longitude!!)
+                            Coordinates(latitude, longitude)
                         )
                         postViewModel.save()
                         AndroidUtils.hideKeyboard(requireView())

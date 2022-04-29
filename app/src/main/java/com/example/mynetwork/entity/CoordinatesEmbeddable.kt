@@ -3,8 +3,8 @@ package com.example.mynetwork.entity
 import com.example.mynetwork.dto.Coordinates
 
 data class CoordinatesEmbeddable(
-    val lat: Double,
-    val longitude: Double,
+    val lat: Double?,
+    val longitude: Double?,
 ) {
     fun toDto() = Coordinates(lat, longitude)
 

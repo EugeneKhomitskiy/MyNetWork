@@ -59,8 +59,8 @@ class PostsFragment : Fragment() {
                 postViewModel.edit(post)
                 val bundle = Bundle().apply {
                     putString("content", post.content)
-                    putDouble("lat", post.coords?.lat!!)
-                    putDouble("lng", post.coords.long)
+                    post.coords?.lat?.let { putDouble("lat", it) }
+                    post.coords?.long?.let { putDouble("lng", it) }
                 }
                 findNavController().navigate(R.id.newPostFragment, bundle)
             }
@@ -139,6 +139,13 @@ class PostsFragment : Fragment() {
                     post.coords?.long?.let { putDouble("lng", it) }
                 }
                 findNavController().navigate(R.id.mapFragment, bundle)
+            }
+
+            override fun onOpenImageAttachment(post: Post) {
+                val bundle = Bundle().apply {
+                    putString("url", post.attachment?.url)
+                }
+                findNavController().navigate(R.id.imageFragment, bundle)
             }
         })
 
