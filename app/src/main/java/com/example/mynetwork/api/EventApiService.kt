@@ -14,12 +14,6 @@ interface EventApiService {
         @Query("count") count: Int
     ): Response<List<Event>>
 
-    @GET("events/{id}/after")
-    suspend fun getAfter(
-        @Path("id") id: Long,
-        @Query("count") count: Int
-    ): Response<List<Event>>
-
     @GET("events/latest")
     suspend fun getLatest(@Query("count") count: Int): Response<List<Event>>
 

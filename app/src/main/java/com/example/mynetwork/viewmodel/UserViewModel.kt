@@ -1,7 +1,6 @@
 package com.example.mynetwork.viewmodel
 
 import androidx.lifecycle.*
-import androidx.paging.LoadState
 import com.example.mynetwork.api.UserApiService
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.model.ModelState

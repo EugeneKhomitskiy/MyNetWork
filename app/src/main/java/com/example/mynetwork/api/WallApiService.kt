@@ -15,13 +15,6 @@ interface WallApiService {
         @Query("count") count: Int
     ): Response<List<Post>>
 
-    @GET("{userId}/wall/{id}/after")
-    suspend fun getWallAfter(
-        @Path("userId") userId: Long,
-        @Path("id") id: Long,
-        @Query("count") count: Int
-    ): Response<List<Post>>
-
     @GET("{userId}/wall/latest")
     suspend fun getWallLatest(
         @Path("userId") userId: Long,

@@ -14,7 +14,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.mynetwork.R
 import com.example.mynetwork.databinding.CardEventBinding
 import com.example.mynetwork.dto.Event
-import com.example.mynetwork.dto.Post
 import com.example.mynetwork.enumeration.AttachmentType
 import com.example.mynetwork.extension.formatToDate
 
@@ -105,7 +104,9 @@ class EventViewHolder(
                 onEventInteractionListener.onParticipate(event)
             }
 
-            geo.visibility = if (event.coords == null) View.GONE else View.VISIBLE
+            geo.visibility =
+                if (event.coords == null || event.coords.lat == 0.0 && event.coords.long == 0.0)
+                    View.GONE else View.VISIBLE
             geo.setOnClickListener {
                 onEventInteractionListener.onOpenMap(event)
             }

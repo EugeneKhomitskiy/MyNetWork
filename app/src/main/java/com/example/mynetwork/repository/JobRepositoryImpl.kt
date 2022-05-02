@@ -4,7 +4,6 @@ import com.example.mynetwork.api.JobApiService
 import com.example.mynetwork.dao.JobDao
 import com.example.mynetwork.dto.Job
 import com.example.mynetwork.entity.JobEntity
-import com.example.mynetwork.entity.PostEntity
 import com.example.mynetwork.entity.toDto
 import com.example.mynetwork.entity.toJobEntity
 import com.example.mynetwork.error.ApiError

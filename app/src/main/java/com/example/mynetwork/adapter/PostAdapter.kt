@@ -108,7 +108,9 @@ class PostViewHolder(
                 onPostInteractionListener.onPlayVideo(post)
             }
 
-            geo.visibility = if (post.coords == null) View.GONE else View.VISIBLE
+            geo.visibility =
+                if (post.coords == null || post.coords.lat == 0.0 && post.coords.long == 0.0)
+                    View.GONE else View.VISIBLE
             geo.setOnClickListener {
                 onPostInteractionListener.onOpenMap(post)
             }
