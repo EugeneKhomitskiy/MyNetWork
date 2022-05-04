@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -22,7 +23,10 @@ import com.example.mynetwork.R
 import com.example.mynetwork.databinding.ActivityAppBinding
 import com.example.mynetwork.viewmodel.AuthViewModel
 import com.example.mynetwork.viewmodel.UserViewModel
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailabilityLight
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
@@ -33,6 +37,12 @@ class AppActivity : AppCompatActivity() {
 
     @Inject
     lateinit var appAuth: AppAuth
+
+    @Inject
+    lateinit var googleApiAvailability: GoogleApiAvailabilityLight
+
+    @Inject
+    lateinit var firebaseMessaging: FirebaseMessaging
 
     private val authViewModel: AuthViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
@@ -116,6 +126,8 @@ class AppActivity : AppCompatActivity() {
                     override fun onLoadCleared(placeholder: Drawable?) {}
                 })
         }
+
+        checkGoogleApiAvailability()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -147,6 +159,25 @@ class AppActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun checkGoogleApiAvailability() {
+        with(googleApiAvailability) {
+            val code = isGooglePlayServicesAvailable(this@AppActivity)
+            if (code == ConnectionResult.SUCCESS) {
+                return@with
+            }
+            if (isUserResolvableError(code)) {
+                getErrorString(code)
+                return
+            }
+            Toast.makeText(this@AppActivity, R.string.google_play_unavailable, Toast.LENGTH_LONG)
+                .show()
+        }
+
+        firebaseMessaging.token.addOnSuccessListener {
+            println(it)
         }
     }
 }

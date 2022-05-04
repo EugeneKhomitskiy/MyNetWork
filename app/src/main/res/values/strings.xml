@@ -61,4 +61,7 @@
     <string name="retry">Try again</string>
     <string name="set_geo_label">Set geolabel</string>/>
     <string name="map">Map</string>/>
+    <string name="google_play_unavailable">Google Api Unavailable</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
 </resources>

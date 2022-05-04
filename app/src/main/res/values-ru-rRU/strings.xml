@@ -62,4 +62,7 @@
     <string name="retry">Повторите попытку</string>
     <string name="set_geo_label">Установить геометку</string>
     <string name="map">Карта</string> />
+    <string name="google_play_unavailable">Google Api Недоступно</string>
+    <string name="channel_remote_name">Уведомления с сервера</string>
+    <string name="channel_remote_description">Уведомления с удалённого сервера</string>
 </resources>

@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'dagger.hilt.android.plugin'
 
@@ -54,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-cast-framework:21.0.1'
     implementation 'com.android.support:support-annotations:28.0.0'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -87,8 +87,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:19.0.1'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation "com.github.bumptech.glide:glide:4.12.0"
+    implementation "com.google.code.gson:gson:2.9.0"
     implementation 'com.github.dhaval2404:imagepicker:2.1'
-    implementation "com.google.firebase:firebase-messaging-ktx:23.0.3"
+    implementation "com.google.firebase:firebase-messaging-ktx"
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     implementation 'com.yandex.android:maps.mobile:4.0.0-lite'
     implementation 'com.google.maps.android:maps-ktx:3.2.0'
