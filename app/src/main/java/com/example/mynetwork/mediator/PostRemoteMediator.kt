@@ -61,6 +61,7 @@ class PostRemoteMediator(
                                 )
                             )
                         }
+                        postDao.removeAll()
                     }
                     LoadType.APPEND -> {
                         postRemoteKeyDao.insert(
