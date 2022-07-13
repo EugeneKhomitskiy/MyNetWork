@@ -37,4 +37,18 @@ class UserRepositoryImpl @Inject constructor(
             throw UnknownError()
         }
     }
+
+    override suspend fun getUserById(id: Long): User {
+        try {
+            val response = userApiService.getUserById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            return response.body() ?: throw ApiError(response.message())
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
+    }
 }

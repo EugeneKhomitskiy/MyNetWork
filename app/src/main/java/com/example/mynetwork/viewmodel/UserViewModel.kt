@@ -1,20 +1,17 @@
 package com.example.mynetwork.viewmodel
 
 import androidx.lifecycle.*
-import com.example.mynetwork.api.UserApiService
 import com.example.mynetwork.dto.User
 import com.example.mynetwork.model.ModelState
 import com.example.mynetwork.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userRepository: UserRepository,
-    private val userApiService: UserApiService
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     val data: LiveData<List<User>> = userRepository.data
@@ -49,12 +46,9 @@ class UserViewModel @Inject constructor(
     fun getUserById(id: Long) = viewModelScope.launch {
         _dataState.postValue(ModelState(loading = true))
         try {
-            val response = userApiService.getUserById(id)
-            if (response.isSuccessful) {
-                _user.value = response.body()
-            }
+            _user.value = userRepository.getUserById(id)
             _dataState.postValue(ModelState())
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             _dataState.postValue(ModelState(error = true))
         }
     }

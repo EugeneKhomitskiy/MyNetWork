@@ -8,6 +8,7 @@ import com.example.mynetwork.api.UserApiService
 import com.example.mynetwork.dto.Token
 import com.example.mynetwork.error.ApiError
 import com.example.mynetwork.model.ModelState
+import com.example.mynetwork.repository.SignInRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val userApiService: UserApiService
+    private val signInRepository: SignInRepository
 ) : ViewModel() {
 
     val data = MutableLiveData<Token>()
@@ -28,13 +29,8 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
             _dataState.postValue(ModelState(loading = true))
             try {
-                val response = userApiService.updateUser(name, pass)
-                if (!response.isSuccessful) {
-                    throw ApiError(response.message())
-                }
+                data.value = signInRepository.updateUser(name, pass)
                 _dataState.postValue(ModelState())
-                val body = response.body() ?: throw ApiError(response.message())
-                data.value = Token(body.id, body.token)
             } catch (e: IOException) {
                 _dataState.postValue(ModelState(error = true))
             } catch (e: Exception) {

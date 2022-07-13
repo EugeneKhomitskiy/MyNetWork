@@ -29,4 +29,12 @@ interface RepositoryModule {
     @Binds
     @Singleton
     fun bindsJobService(impl: JobRepositoryImpl): JobRepository
+
+    @Binds
+    @Singleton
+    fun bindsSignInService(impl: SignInRepositoryImpl): SignInRepository
+
+    @Binds
+    @Singleton
+    fun bindsSignUpService(impl: SignUpRepositoryImpl): SignUpRepository
 }
